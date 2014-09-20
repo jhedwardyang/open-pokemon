@@ -1,0 +1,109 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/leapmotion.css">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <script src="assets/leapjs/leap-0.6.2.js"></script>
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+    window.controller = new Leap.Controller({enableGestures: true});
+    // window.controller = new Leap.Controller("ws://localhost:6437/");
+    
+    var swipeGesture = controller.gesture('swipe');
+    var circleGesture = controller.gesture('circle');
+    // var keytapGesture = controller.gesture('kep_tap');
+    // var screentapGesture = controller.gesture('screen_tap');
+    
+    var tolerance = 40;
+    var cooloff = 200;
+
+    var pokemonID = 0;
+    var pokemonNames = ["bulbasaur", "charmander", "squirtle", "pikachu", "pidgey", "rattata"];
+
+    var loved = 0;
+    var changePokemon = function(id) {
+      console.log("ID: " + id + ", name: " + pokemonNames[id])
+      if (loved > 0) {
+        document.getElementById('overlay').remove();
+        loved = 0;
+      }
+      document.getElementById('pokemon').src = 'images/pokemon/' + pokemonNames[id].toLowerCase() + '.gif';
+    }
+
+    var slider = _.debounce(function(xDir) {
+      if (xDir != 0) {
+        pokemonID += xDir;
+        pokemonID = (pokemonID + 6) % 6;
+        changePokemon(pokemonID);
+      }
+    }, cooloff);
+
+    circleGesture.stop(function(g) {
+      console.log("Circle gesture");
+        slider(1);
+    });
+    
+    swipeGesture.stop(function(g) {
+      console.log("Swipe gesture");
+      if (loved == 0) {
+        $('.pokemon-wrapper').append('<img src="images/Icon/HEART-loop.gif" id="overlay">');
+        loved = true
+      } else if (loved > 3) {
+        document.getElementById('overlay').src = 'images/Icon/DISLIKE-loop.gif';
+      }
+      loved += 1;
+    });
+
+    /*
+    keytapGesture.update(function(g) {
+      console.log("key tap gesture");
+      console.log(g);
+    });
+
+    screentapGesture.update(function(g) {
+      console.log("screen tap gesture");
+      console.log(g);
+    });
+    */
+    
+    controller.connect();
+    $('.pokemon-wrapper').append('<img src="images/pokemon/' + pokemonNames[pokemonID] + '.gif" id="pokemon">')
+  })
+  </script>
+</head>
+
+<body background="images/field.jpg">
+  <div class="pokemon-wrapper">
+  </div>
+</body>
+</html>
+<!--
+      // Create and open the socket
+      ws = new WebSocket("ws://localhost:6437/");
+
+      // On successful connection
+      ws.onopen = function(event) {
+        var enableMessage = JSON.stringify({enableGestures: true});
+        ws.send(enableMessage); // Enable gestures
+      };
+
+      // On message received
+      ws.onmessage = function(event) {
+          var trackingdata = JSON.parse(event.data);
+          console.log(trackingdata)
+          // ...do something with the data
+        }
+      };
+
+      // On socket close
+      ws.onclose = function(event) {
+        ws = null;
+      }
+
+      // On socket error
+      ws.onerror = function(event) {
+        alert("Received error");
+      };
+    }
+    -->
