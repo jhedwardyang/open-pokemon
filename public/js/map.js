@@ -548,7 +548,7 @@ socket.on('welcome', function(data) {
   socket.emit('iam', { email: email });
 });
 
-socket.on('playerBattle' function (data) {
+socket.on('playerBattle', function (data) {
   isPvP = true;
   enemyEmail = data.enemyEmail;
 
