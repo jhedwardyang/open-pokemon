@@ -3,10 +3,16 @@
 		<title>Test</title>
 	</head>
 	<body>
-		<div id="test"></div>
+		<div id="test1">a</div>
+		<div id="test2">b</div>
+		<div id="test3">c</div>
 		<script type="text/javascript" src="/assets/jquery-2.1.1.min/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
-			$("#test").val($(window).height() + ' ' + $(window).width());
+			$(function(){
+				$("#test1").val($(window).height() + ' ' + $(window).width());
+				$("#test2").val($(document).height() + ' ' + $(document).width());
+				$("#test3").val($("html").height() + ' ' + $("html").width());
+			});
 		</script>
 	</body>
 </html>
