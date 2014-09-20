@@ -213,7 +213,7 @@ function accelerometerUpdate(e) {
   var aX = event.accelerationIncludingGravity.x;
   var aY = event.accelerationIncludingGravity.y;
   var aZ = event.accelerationIncludingGravity.z;
-  if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) < 1.8) {
+  if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) > 1.8) {
     ++c;
     if(c%cc == 0) {
       $.post("/STEPNI");
