@@ -1,21 +1,36 @@
 // SET EVENT LISTENERS
 
 
+document.addEventListener("mousedown", clickStart, true);
+document.addEventListener("mouseup", clickEnd, true);
+
 if (window.DeviceMotionEvent != undefined) {
   window.addEventListener("devicemotion", accelerometerUpdate, true);
   document.addEventListener("touchstart", touchStart, true);
-  // document.addEventListener("touchmove", touchMove, true);
   document.addEventListener("touchend", touchEnd, true);
+} else {
+  
 }
 
-var start;
+var start = {};
+function clickStart(event) {
+  start.pageX = event.x;
+  start.pageY = event.y;
+}
+function clickEnd(event) {
+  var end = {};
+  end.pageX = event.x;
+  end.pageY = event.y;
+  if(start.pageY > (end.pageY + 550)) alert('attack');
+}
 function touchStart(event) {
-  start = event.touches[0];
+  console.log(event);
+  start = event.changedTouches[0];
 }
 function touchEnd(event) {
-  var end = event.touches[0];
+  var end = event.changedTouches[0];
   alert(start.pageX + ' ' + start.pageY + ' | ' + end.pageX + ' ' + end.pageY);
-  if(start.pageY > (end.pageY + 600)) alert('attack');
+  if(start.pageY > (end.pageY + 500)) alert('attack');
 }
 
 function accelerometerUpdate(e) {
@@ -33,7 +48,8 @@ function accelerometerUpdate(e) {
 
 $(function(){
   $('img').on('dragstart', function(event) { event.preventDefault(); });
-  $(document).scrollTop($(document).height()); // SCROLL TO BOTTOM
+  // document.body.requestFullscreen();
+  window.scrollTo(0,1);
 });
 
 
