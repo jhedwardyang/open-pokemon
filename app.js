@@ -158,7 +158,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('getEnemyRoster', function (data) {
-    console.log("sabrina is a poopoo head");
+    console.log(data);
     User.getEnemyRoster(data.enemyEmail, socket);
   });
 
