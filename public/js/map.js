@@ -1,3 +1,24 @@
+// MAPPS
+
+var loc = [43.472979 , -80.540103];
+navigator.geolocation.getCurrentPosition(GetLocation);
+function GetLocation(location) {
+  loc = [location.coords.latitude,location.coords.longitude];
+    // alert( + ' - ' +  + ' - ' + location.coords.accuracy);
+}
+
+      function initialize() {
+        var mapOptions = {
+          center: { lat: loc[0], lng: loc[1]},
+          zoom: 19,
+           disableDefaultUI: true,
+          scaleControl: false, mapTypeId: google.maps.MapTypeId.SATELLITE
+        };
+        var map = new google.maps.Map(document.getElementById('map'),
+            mapOptions);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+
 var pkall = [
   ["001", "Bulbasaur", "Grass", "Poison"],
   ["002", "Ivysaur", "Grass", "Poison"],
@@ -429,19 +450,18 @@ $(function(){
   $(window).scrollTop($(document).height());
 });
 
+var bg = 0;
 createjs.Sound.alternateExtensions = ["mp3"];
  createjs.Sound.addEventListener("fileload", createjs.proxy(this.loadHandler, this));
  createjs.Sound.registerSound("/audio/battle.ogg", "sound");
  function loadHandler(event) {
-     // This is fired for each sound that is registered.
-     instance = createjs.Sound.play("sound");  // play using id.  Could also use full sourcepath or event.src.
-     instance.addEventListener("complete", createjs.proxy(this.handleComplete, this));
-     instance.volume = 0.5;
+    bg = 1;
+     
  }
 
 
-// var socket = io('http://localhost:3000');
-var socket = io('http://ejx.me');
+var socket = io('http://localhost:3000');
+// var socket = io('http://ejx.me');
 socket.on('spawnPokemon', function (data) {
   // console.log(data);
   $("#pokemon1").attr('src', '/images/pokemon/'+pkall[data.pokemon.pid][1].toLowerCase()+'.gif');
@@ -449,6 +469,11 @@ socket.on('spawnPokemon', function (data) {
   socket.emit('getRoster', {'email': $("#ee").val()});
 });
 socket.on('roster', function(data){
-  console.log(data);
+  // console.log(data);
   $("#pokemon2").attr('src', '/images/pokemon/'+pkall[data[0].pid][1].toLowerCase()+'-(1).gif');
+  $("#battle").fadeTo( "slow", 1 );
+  if(bg == 1) {
+    instance = createjs.Sound.play("sound");  // play using id.  Could also use full sourcepath or event.src.
+    instance.volume = 0.5;
+ }
 });

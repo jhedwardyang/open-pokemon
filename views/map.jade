@@ -7,9 +7,10 @@ html
 		link(rel="icon", type="image/png", href="/images/favicon.png?")
 		meta(name="viewport", content="width=1080, user-scalable=no")
 		meta(name="mobile-web-app-capable", content="yes")
-	body
-		#battle.container
-			img(src="/images/battle/map-road.png",class="battle-map")
+	body(style="position:relative")
+		#map
+		#battle(style="opacity:0")
+			img(src="/images/battle/map-road.png", class="battle-map")
 
 			div#hp1.meter.green.nostripes.hp
 				span(style="width: 100%")
@@ -35,4 +36,5 @@ html
 		script(type="text/javascript", src="/assets/SoundJS-release_v0.5.2/soundjs/HTMLAudioPlugin.js")
 
 		script(src="https://cdn.socket.io/socket.io-1.1.0.js")
+		script(src="https://maps.googleapis.com/maps/api/js?v=3.exp")
 		script(type="text/javascript" src="/js/map.js")
