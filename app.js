@@ -167,7 +167,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('attack', function (data) {
-    connections[data.enemyEmail].emit('getAttacked', {});
+    connections[data.Email].emit('getAttacked', {});
   });
 });
 
