@@ -549,7 +549,7 @@ socket.on('welcome', function(data) {
 });
 
 $('#challenge').click(function(){
-  socket.emit('challenge', {}));
+  socket.emit('challenge', {});
 });
 
 socket.on('playerBattle', function (data) {
