@@ -541,7 +541,6 @@ socket = io('http://ejx.me');
 $(function(){
 
   $('#challenge').click(function(){
-    console.log("challengedddd");
     socket.emit('challenge', {});
   });
   $('img').on('dragstart', function(event) { event.preventDefault(); });
@@ -556,6 +555,7 @@ socket.on('welcome', function(data) {
 socket.on('playerBattle', function (data) {
   isPvP = true;
   enemyEmail = data.enemyEmail;
+  console.log(enemyEmail);
 
   $("#overlay").fadeTo("slow", 0);
   $("#map").fadeTo("slow", 0);
