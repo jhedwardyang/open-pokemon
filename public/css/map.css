@@ -15,7 +15,7 @@
 
 .pokemon {
 	position: absolute;
-	z-index: 3;
+	z-index: 5;
 	-moz-transform: scale(5.2);
     -ms-transform: scale(5.2);
     -o-transform: scale(5.2);
@@ -28,7 +28,7 @@
 	left: 510px;
 }
 #pokemon2 {
-	top: 1600px;
+	top: 1598px;
 	left: 340px;
 }
 
