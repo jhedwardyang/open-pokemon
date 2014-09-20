@@ -1,0 +1,11 @@
+table {
+	border-spacing: 0px 10px;
+	/* color: red;
+	background:navy; */
+}
+
+td {
+	font-family: sans-serif;
+	font-size: 25px;
+	vertical-align:middle;
+}

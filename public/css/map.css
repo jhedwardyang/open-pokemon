@@ -13,6 +13,24 @@
 	z-index: 1;
 }
 
+.hp {
+	position:absolute;
+	z-index: 6;
+	width: 300px;
+	-webkit-transition: .4s ease-in-out;
+    -moz-transition: .4s ease-in-out;
+    -o-transition: .4s ease-in-out;
+    transition: .4s ease-in-out;
+}
+#hp1{
+	top: 500px;
+	left: 300px;
+}
+#hp2{
+	top: 1340px;
+	left: 250px;
+}
+
 .pokemon {
 	position: absolute;
 	z-index: 5;

@@ -1,0 +1,234 @@
+<html>
+<head>
+	<title>Pokemon</title>
+	<link rel="stylesheet" type="text/css" href="css/pokedex.css">
+</head>
+<body>
+	<script type="text/javascript" src="assets/jquery-2.1.1.min/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+	<script type="text/javascript">
+  		var socket = io('http://ejx.me');
+		  socket.on('welcome', function (data) {
+		    console.log(data);
+		    socket.emit('getPokedexDump', {email:'jack@email.com'});
+		  });
+		  socket.on('PokedexDump', function (data) {
+		    renderTable(data.pokedexDump);
+		    // console.log(data)
+		    // console.log(pokedex)
+		  });
+		
+		function renderTable(pokedex) {
+			var imageSize = 200
+
+			$("body").append('<h1>Pokedex</h1>')
+			// initialize table
+			$("body").append('<table cellpadding="0" cellspacing="0" id="pokedex">')
+			$("body").append('<tr>')
+			$("body").append('<td width = "' + imageSize + '"></td>')
+		   	$("body").append('<td width = "100">' + 'ID' + '</td>')
+		    $("body").append('<td width = "200">' + 'Name' + '</td>')
+		    $("body").append('<td width = "100">' + 'Type' + '</td>')
+		    $("body").append('<td width = "100"></td>')
+		    $("body").append('<td width = "200"></td>')
+		   	$("body").append('</tr>')
+			console.log(pokedex)
+			for(i = 0; i < 151; i++) {
+				/*
+				if (i % 4 == 0)
+					pokedex[i].push(2)
+				else if (i % 2 == 0)
+					pokedex[i].push(1)
+				else
+					pokedex[i].push(0)
+				*/
+				// if pokemon is not seen, display question marks for everything except ID
+				
+				$("body").append('<tr height = "100" id="' + pokedex[i][1] + '"">')
+				if (pokedex[i][4] > 0) {
+					var pokemon_icon = 'images/pokemon/' + pokedex[i][1].toLowerCase() + '.gif'
+
+				   	$("#"+pokedex[i][1]).append('<td><img src="' + pokemon_icon + '" alt="" border=0 height=' + imageSize + ' width=' + imageSize + '></img></td>')
+				    $("#"+pokedex[i][1]).append('<td>No' + pokedex[i][0] + '</td>')
+				    $("#"+pokedex[i][1]).append('<td>' + pokedex[i][1] + '</td>')
+				    $("#"+pokedex[i][1]).append('<td>' + pokedex[i][2] + '</td>')
+				    $("#"+pokedex[i][1]).append('<td>' + pokedex[i][3] + '</td>')
+					
+					// if pokemon is seen and caught, display a pokeball on the right
+				    if (pokedex[i][4] == 2)
+				    	$("#"+pokedex[i][1]).append('<td align = "center">' + '<img src="images/icon/pokeball-icon.png" alt="" border=0 height=' + imageSize/4 + ' width=' + imageSize/4 + '></img>' + '</td>')
+					else
+						$("#"+pokedex[i][1]).append('<td></td>')
+				} else {
+					var pokemon_icon = 'images/icon/question-icon.png'
+				   	$("#"+pokedex[i][1]).append('<td><img src="' + pokemon_icon + '" alt="" border=0 height=' + imageSize + ' width=' + imageSize + '></img></td>')
+				    $("#"+pokedex[i][1]).append('<td>No' + pokedex[i][0] + '</td>')
+				    $("#"+pokedex[i][1]).append('<td>' + "????" + '</td>')
+				    $("#"+pokedex[i][1]).append('<td></td>')
+				    $("#"+pokedex[i][1]).append('<td></td>')
+				    $("#"+pokedex[i][1]).append('<td></td>')
+				}
+			   	$("body").append('</tr>')
+			}
+			$("body").append('</table>')
+			console.log($("body"))
+		}
+	</script>
+</body>
+</html>
+
+<!--
+		var pokedex = [
+			["001", "Bulbasaur", "Grass", "Poison"],
+			["002", "Ivysaur", "Grass", "Poison"],
+			["003", "Venusaur", "Grass", "Poison"],
+			["004", "Charmander", "Fire", ""],
+			["005", "Charmeleon", "Fire", ""],
+			["006", "Charizard", "Fire", "Flying"],
+			["007", "Squirtle", "Water", ""],
+			["008", "Wartortle", "Water", ""],
+			["009", "Blastoise", "Water", ""],
+			["010", "Caterpie", "Bug", ""],
+			["011", "Metapod", "Bug", ""],
+			["012", "Butterfree", "Bug", "Flying"],
+			["013", "Weedle", "Bug", "Poison"],
+			["014", "Kakuna", "Bug", "Poison"],
+			["015", "Beedrill", "Bug", "Poison"],
+			["016", "Pidgey", "Normal", "Flying"],
+			["017", "Pidgeotto", "Normal", "Flying"],
+			["018", "Pidgeot", "Normal", "Flying"],
+			["019", "Rattata", "Normal", ""],
+			["020", "Raticate", "Normal", ""],
+			["021", "Spearow", "Normal", "Flying"],
+			["022", "Fearow", "Normal", "Flying"],
+			["023", "Ekans", "Poison", ""],
+			["024", "Arbok", "Poison", ""],
+			["025", "Pikachu", "Electric", ""],
+			["026", "Raichu", "Electric", ""],
+			["027", "Sandshrew", "Ground", ""],
+			["028", "Sandslash", "Ground", ""],
+			["029", "Nidoran♀", "Poison", ""],
+			["030", "Nidorina", "Poison", ""],
+			["031", "Nidoqueen", "Poison", "Ground"],
+			["032", "Nidoran♂", "Poison", ""],
+			["033", "Nidorino", "Poison", ""],
+			["034", "Nidoking", "Poison", "Ground"],
+			["035", "Clefairy", "Fairy", ""],
+			["036", "Clefable", "Fairy", ""],
+			["037", "Vulpix", "Fire", ""],
+			["038", "Ninetales", "Fire", ""],
+			["039", "Jigglypuff", "Normal", "Fairy"],
+			["040", "Wigglytuff", "Normal", "Fairy"],
+			["041", "Zubat", "Poison", "Flying"],
+			["042", "Golbat", "Poison", "Flying"],
+			["043", "Oddish", "Grass", "Poison"],
+			["044", "Gloom", "Grass", "Poison"],
+			["045", "Vileplume", "Grass", "Poison"],
+			["046", "Paras", "Bug", "Grass"],
+			["047", "Parasect", "Bug", "Grass"],
+			["048", "Venonat", "Bug", "Poison"],
+			["049", "Venomoth", "Bug", "Poison"],
+			["050", "Diglett", "Ground", ""],
+			["051", "Dugtrio", "Ground", ""],
+			["052", "Meowth", "Normal", ""],
+			["053", "Persian", "Normal", ""],
+			["054", "Psyduck", "Water", ""],
+			["055", "Golduck", "Water", ""],
+			["056", "Mankey", "Fighting", ""],
+			["057", "Primeape", "Fighting", ""],
+			["058", "Growlithe", "Fire", ""],
+			["059", "Arcanine", "Fire", ""],
+			["060", "Poliwag", "Water", ""],
+			["061", "Poliwhirl", "Water", ""],
+			["062", "Poliwrath", "Water", "Fighting"],
+			["063", "Abra", "Psychic", ""],
+			["064", "Kadabra", "Psychic", ""],
+			["065", "Alakazam", "Psychic", ""],
+			["066", "Machop", "Fighting", ""],
+			["067", "Machoke", "Fighting", ""],
+			["068", "Machamp", "Fighting", ""],
+			["069", "Bellsprout", "Grass", "Poison"],
+			["070", "Weepinbell", "Grass", "Poison"],
+			["071", "Victreebel", "Grass", "Poison"],
+			["072", "Tentacool", "Water", "Poison"],
+			["073", "Tentacruel", "Water", "Poison"],
+			["074", "Geodude", "Rock", "Ground"],
+			["075", "Graveler", "Rock", "Ground"],
+			["076", "Golem", "Rock", "Ground"],
+			["077", "Ponyta", "Fire", ""],
+			["078", "Rapidash", "Fire", ""],
+			["079", "Slowpoke", "Water", "Psychic"],
+			["080", "Slowbro", "Water", "Psychic"],
+			["081", "Magnemite", "Electric", "Steel"],
+			["082", "Magneton", "Electric", "Steel"],
+			["083", "Farfetch'd", "Normal", "Flying"],
+			["084", "Doduo", "Normal", "Flying"],
+			["085", "Dodrio", "Normal", "Flying"],
+			["086", "Seel", "Water", ""],
+			["087", "Dewgong", "Water", "Ice"],
+			["088", "Grimer", "Poison", ""],
+			["089", "Muk", "Poison", ""],
+			["090", "Shellder", "Water", ""],
+			["091", "Cloyster", "Water", "Ice"],
+			["092", "Gastly", "Ghost", "Poison"],
+			["093", "Haunter", "Ghost", "Poison"],
+			["094", "Gengar", "Ghost", "Poison"],
+			["095", "Onix", "Rock", "Ground"],
+			["096", "Drowzee", "Psychic", ""],
+			["097", "Hypno", "Psychic", ""],
+			["098", "Krabby", "Water", ""],
+			["099", "Kingler", "Water", ""],
+			["100", "Voltorb", "Electric", ""],
+			["101", "Electrode", "Electric", ""],
+			["102", "Exeggcute", "Grass", "Psychic"],
+			["103", "Exeggutor", "Grass", "Psychic"],
+			["104", "Cubone", "Ground", ""],
+			["105", "Marowak", "Ground", ""],
+			["106", "Hitmonlee", "Fighting", ""],
+			["107", "Hitmonchan", "Fighting", ""],
+			["108", "Lickitung", "Normal", ""],
+			["109", "Koffing", "Poison", ""],
+			["110", "Weezing", "Poison", ""],
+			["111", "Rhyhorn", "Ground", "Rock"],
+			["112", "Rhydon", "Ground", "Rock"],
+			["113", "Chansey", "Normal", ""],
+			["114", "Tangela", "Grass", ""],
+			["115", "Kangaskhan", "Normal", ""],
+			["116", "Horsea", "Water", ""],
+			["117", "Seadra", "Water", ""],
+			["118", "Goldeen", "Water", ""],
+			["119", "Seaking", "Water", ""],
+			["120", "Staryu", "Water", ""],
+			["121", "Starmie", "Water", "Psychic"],
+			["122", "Mr. Mime", "Psychic", "Fairy"],
+			["123", "Scyther", "Bug", "Flying"],
+			["124", "Jynx", "Ice", "Psychic"],
+			["125", "Electabuzz", "Electric", ""],
+			["126", "Magmar", "Fire", ""],
+			["127", "Pinsir", "Bug", ""],
+			["128", "Tauros", "Normal", ""],
+			["129", "Magikarp", "Water", ""],
+			["130", "Gyarados", "Water", "Flying"],
+			["131", "Lapras", "Water", "Ice"],
+			["132", "Ditto", "Normal", ""],
+			["133", "Eevee", "Normal", ""],
+			["134", "Vaporeon", "Water", ""],
+			["135", "Jolteon", "Electric", ""],
+			["136", "Flareon", "Fire", ""],
+			["137", "Porygon", "Normal", ""],
+			["138", "Omanyte", "Rock", "Water"],
+			["139", "Omastar", "Rock", "Water"],
+			["140", "Kabuto", "Rock", "Water"],
+			["141", "Kabutops", "Rock", "Water"],
+			["142", "Aerodactyl", "Rock", "Flying"],
+			["143", "Snorlax", "Normal", ""],
+			["144", "Articuno", "Ice", "Flying"],
+			["145", "Zapdos", "Electric", "Flying"],
+			["146", "Moltres", "Fire", "Flying"],
+			["147", "Dratini", "Dragon", ""],
+			["148", "Dragonair", "Dragon", ""],
+			["149", "Dragonite", "Dragon", "Flying"],
+			["150", "Mewtwo", "Psychic", ""],
+			["151", "Mew", "Psychic", ""]
+		]
+-->

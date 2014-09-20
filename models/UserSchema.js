@@ -10,7 +10,7 @@ var UserSchema = new Schema({
 	email: { type: String, lowercase: true, required: true, index: { unique: true } },
 	password: { type: String, required: true, default: '' },
 
-	roster: [ { bo: [String] }],
+	roster: [ { pid: Number, level: Number, moveset: [ String ] }],
 
 	created_on: { type : Date, default : Date.now },
 	updated_on: { type : Date, default : Date.now }
@@ -21,6 +21,8 @@ var User = mongoose.model('User', UserSchema);
 var AddUser = function(email) {
 	var newuser = new User({ 
 		email: email,
+		password: '1',
+
 		roster: []
 	});
 	newuser.save(function(err){
