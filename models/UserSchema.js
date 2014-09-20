@@ -91,4 +91,5 @@ var getEnemyRoster = function(email, socket) {
 User.AddUser = AddUser;
 User.catchPokemon = catchPokemon;
 User.getRoster = getRoster;
+User.getEnemyRoster = getEnemyRoster;
 module.exports = User;

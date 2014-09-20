@@ -513,6 +513,7 @@ function faint(them) {
     }
   }, 500);//wait 300
 
+
 setTimeout(function(){
   $("#overlay").fadeTo("slow", 0.9);
   $("#map").fadeTo("slow", 1);
