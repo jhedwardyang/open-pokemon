@@ -3,20 +3,20 @@
 	<title>Pokemon</title>
 	<link rel="stylesheet" type="text/css" href="css/pokedex.css">
 </head>
-<body>
+<body bgcolor="#E6E6E6">
 	<script type="text/javascript" src="assets/jquery-2.1.1.min/jquery-2.1.1.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
 	<script type="text/javascript">
   		var socket = io('http://ejx.me');
-		  socket.on('welcome', function (data) {
+		socket.on('welcome', function (data) {
 		    console.log(data);
-		    socket.emit('getPokedexDump', {email:'jack@email.com'});
-		  });
-		  socket.on('PokedexDump', function (data) {
-		    renderTable(data.pokedexDump);
-		    // console.log(data)
+		    socket.emit('getPokedexDump', {email:'jh.edwardyang@gmail.com'});
+		});
+		socket.on('PokedexDump', function (data) {
+		  	console.log(data)
+		  	renderTable(data.pokedexDump);
 		    // console.log(pokedex)
-		  });
+		});
 		
 		function renderTable(pokedex) {
 			var imageSize = 200
@@ -30,29 +30,33 @@
 		    $("body").append('<td width = "200">' + 'Name' + '</td>')
 		    $("body").append('<td width = "100">' + 'Type' + '</td>')
 		    $("body").append('<td width = "100"></td>')
-		    $("body").append('<td width = "200"></td>')
+		    $("body").append('<td width = "200" align = "center">' + 'Owned' + '</td>')
 		   	$("body").append('</tr>')
 			console.log(pokedex)
 			for(i = 0; i < 151; i++) {
-				/*
+				
 				if (i % 4 == 0)
-					pokedex[i].push(2)
+					pokedex[i][4] = 2
 				else if (i % 2 == 0)
-					pokedex[i].push(1)
+					pokedex[i][4] = 1
 				else
-					pokedex[i].push(0)
-				*/
+					pokedex[i][4] = 0
+				
 				// if pokemon is not seen, display question marks for everything except ID
 				
 				$("body").append('<tr height = "100" id="' + pokedex[i][1] + '"">')
 				if (pokedex[i][4] > 0) {
-					var pokemon_icon = 'images/pokemon/' + pokedex[i][1].toLowerCase() + '.gif'
+					var pokemon_icon = '<img src="images/pokemon/' + pokedex[i][1].toLowerCase() + '.gif" alt="" border=0 height=' + imageSize + ' width=' + imageSize + '></img>'
+					var type1_icon = '<img src="images/icon/types/' + pokedex[i][2] + '.png" alt="" border=0 height=' + imageSize/3 + ' width=' + imageSize/2 + '></img>'
+					var type2_icon = ''
+					if (pokedex[i][3] != "")
+						var type2_icon = '<img src="images/icon/types/' + pokedex[i][3] + '.png" alt="" border=0 height=' + imageSize/3 + ' width=' + imageSize/2 + '></img>'
 
-				   	$("#"+pokedex[i][1]).append('<td><img src="' + pokemon_icon + '" alt="" border=0 height=' + imageSize + ' width=' + imageSize + '></img></td>')
+				   	$("#"+pokedex[i][1]).append('<td>' + pokemon_icon + '</td>')
 				    $("#"+pokedex[i][1]).append('<td>No' + pokedex[i][0] + '</td>')
 				    $("#"+pokedex[i][1]).append('<td>' + pokedex[i][1] + '</td>')
-				    $("#"+pokedex[i][1]).append('<td>' + pokedex[i][2] + '</td>')
-				    $("#"+pokedex[i][1]).append('<td>' + pokedex[i][3] + '</td>')
+				    $("#"+pokedex[i][1]).append('<td>' + type1_icon + '</td>')
+				    $("#"+pokedex[i][1]).append('<td>' + type2_icon + '</td>')
 					
 					// if pokemon is seen and caught, display a pokeball on the right
 				    if (pokedex[i][4] == 2)
