@@ -1,5 +1,7 @@
 // MAPPS
 
+var email = $("#ee").val();
+
 var loc = [43.472979 , -80.540103];
 navigator.geolocation.getCurrentPosition(GetLocation);
 function GetLocation(location) {
@@ -243,9 +245,14 @@ function accelerometerUpdate(e) {
   */
 }
 
+// PRES SLEFT TO MOVE ON KEYBOARD
+$(document).keydown(function(e) {
+    if(e.keyCode == 37) step();
+});
+
 var state_step = 0;
 function step() {
-  $.post('/step');
+  socket.emit('move', { email: email, lat: loc[0], lng: loc[1]});
   if(state_step == 0) {
     state_step = 1;
     $("#marker").css({
@@ -495,6 +502,11 @@ function faint(them) {
       }, 500);
     }
   }, 500);//wait 300
+setTimeout(function(){
+  $("#overlay").fadeTo("slow", 1);
+  $("#map").fadeTo("slow", 1);
+
+}, 1000);
 }
 
 $(function(){
@@ -513,20 +525,26 @@ createjs.Sound.alternateExtensions = ["mp3"];
  }
 
 
-var socket = io('http://localhost:3000');
-// var socket = io('http://ejx.me');
+// var socket = io('http://localhost:3000');
+var socket = io('http://ejx.me');
 socket.on('spawnPokemon', function (data) {
-  // console.log(data);
-  $("#pokemon1").attr('src', '/images/pokemon/'+pkall[data.pokemon.pid][1].toLowerCase()+'.gif');
-  
-  socket.emit('getRoster', {'email': $("#ee").val()});
-});
-socket.on('roster', function(data){
-  // console.log(data);
-  $("#pokemon2").attr('src', '/images/pokemon/'+pkall[data[0].pid][1].toLowerCase()+'-(1).gif');
-  $("#battle").fadeTo( "slow", 1 );
   if(bg == 1) {
     instance = createjs.Sound.play("sound");  // play using id.  Could also use full sourcepath or event.src.
     instance.volume = 0.5;
  }
+  $("#overlay").fadeTo("slow", 0);
+  $("#map").fadeTo("slow", 0);
+
+  // console.log(data);
+  $("#pokemon1").attr('src', '/images/pokemon/'+pkall[data.pokemon.pid][1].toLowerCase()+'.gif');
+  
+  socket.emit('getRoster', {'email': email});
+});
+socket.on('roster', function(data){
+  // console.log(data);
+  
+ setTimeout(function(){
+  $("#pokemon2").attr('src', '/images/pokemon/'+pkall[data[0].pid][1].toLowerCase()+'-(1).gif');
+  $("#battle").fadeTo( "slow", 1 );
+ }, 1000);
 });
