@@ -450,11 +450,11 @@ createjs.Sound.alternateExtensions = ["mp3"];
 var socket = io('http://ejx.me');
 socket.on('spawnPokemon', function (data) {
   // console.log(data);
-  $("#pokemon1").attr('src', '/images/pokemon/'+toLowerCase(pkall[data.pokemon.pid][1])+'.gif');
+  $("#pokemon1").attr('src', '/images/pokemon/'+pkall[data.pokemon.pid][1].toLowerCase()+'.gif');
   
   socket.emit('getRoster', {'email': 'jh.edwardyang@gmail.com'});
 });
 socket.on('roster', function(data){
   console.log(data);
-  $("#pokemon2").attr('src', '/images/pokemon/'+toLowerCase(pkall[data[0].pid][1])+'-(1).gif');
+  $("#pokemon2").attr('src', '/images/pokemon/'+pkall[data[0].pid][1].toLowerCase()+'-(1).gif');
 });
