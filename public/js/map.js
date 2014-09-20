@@ -206,17 +206,20 @@ function touchEnd(event) {
   if(start.pageY > (end.pageY + 550)) attack(true);
 }
 
-var alpha = 0.15;
-var s_T = 0;
-var max = -10;
-var min = 1000;
-var last = [];
-var flag = false;
+var c = 0;
+var cc = 6; // skip every 6th.
 function accelerometerUpdate(e) {
   var aX = event.accelerationIncludingGravity.x;
   var aY = event.accelerationIncludingGravity.y;
   var aZ = event.accelerationIncludingGravity.z;
   if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) < 1.8) {
+    ++c;
+    if(c%cc == 0) step();
+  } else {
+    //ignore
+  }
+
+  /*if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) < 1.8) {
     //ignore
   } else {
     //http://stackoverflow.com/questions/16392142/android-accelerometer-profiling/16539643#16539643
@@ -233,10 +236,10 @@ function accelerometerUpdate(e) {
   }
 
   last = [aX, aY, aZ];
+  */
 }
 function step() {
   $.post("/STEPNI");
-  alert('step');
 }
 
 var state_step = 0;
