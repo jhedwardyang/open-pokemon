@@ -208,6 +208,7 @@ function touchEnd(event) {
 
 var c = 0;
 var cc = 6; // skip every 6th.
+var last = [];
 function accelerometerUpdate(e) {
   var aX = event.accelerationIncludingGravity.x;
   var aY = event.accelerationIncludingGravity.y;
@@ -218,6 +219,7 @@ function accelerometerUpdate(e) {
   } else {
     //ignore
   }
+  last = [aX, aY, aZ];
 
   /*if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) < 1.8) {
     //ignore
