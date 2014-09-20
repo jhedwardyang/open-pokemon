@@ -93,7 +93,7 @@ var httpserver = http.createServer(app).listen(app.get('port'), function(){
 var io = require('socket.io')(httpserver);
 io.on('connection', function (socket) {
   socket.emit('welcome', { welcome: 'welcome' });
-
+  Spawner.spawn('', 0, 0, socket);
   socket.on('move', function (data) {
     // spawn pokemon?
     if(Math.random() < 0.25) Spawner.spawn(data.email, data.lng, data.lat, socket);
@@ -115,9 +115,11 @@ io.on('connection', function (socket) {
   });
 
   socket.on('getRoster', function (data) {
-    User.catchPokemon(data.email, socket);
+    User.getRoster(data.email, socket);
   });
 });
+
+
 
 //Pokedex.addPokemon('jack@email.com', 3);
 //Pokedex.catchPokemon('jack@email.com', 3);

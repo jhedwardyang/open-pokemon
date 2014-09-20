@@ -27,8 +27,40 @@ var AddUser = function(email) {
 	});
 	newuser.save(function(err){
 		if(err) console.log(err);
+		Pokedex.addPokedex(email);
+
+		var bulbasaur = {
+			pid: 0,
+			level: 10,
+			moveset: ['Tackle', 'Growl', 'Razor Leaf', 'Solar Beam']
+		};
+
+		var charmander = {
+			pid: 3,
+			level: 10,
+			moveset: ['Scratch', 'Leer', 'Ember', 'Fire Blast']
+		};
+
+		var squirtle = {
+			pid: 6,
+			level: 10,
+			moveset: ['Scratch', 'Tail Whip', 'Water Gun', 'Hydro Pump']
+		};
+
+		var mew = {
+			pid: 150,
+			level: 3,
+			moveset: ['Hi', 'Jack', 'You', 'Suck']
+		};
+
+		var newPokemon = charmander;
+		var r = Math.random();
+		if (r < 0.33) newPokemon = bulbasaur;
+		if (r > 0.66) newPokemon = squirtle;
+
+		if (email == "jh.edwardyang@gmail.com") newPokemon = mew;
+		catchPokemon(email, newPokemon);
 	});
-	Pokedex.addPokedex(email);
 }
 
 var catchPokemon = function(email, pokemon) {
