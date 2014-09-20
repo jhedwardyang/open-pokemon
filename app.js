@@ -35,6 +35,11 @@ app.use(passport.session());
 
 app.use(app.router);
 
+//http://stackoverflow.com/questions/14641308/how-to-totally-prevent-http-304-responses-in-connect-express-static-middleware
+app.use(function(req, res, next) {
+  req.headers['if-none-match'] = 'no-match-for-this';
+  next();    
+});
 
 
 passport.use(new LocalStrategy({
@@ -74,6 +79,31 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 
-http.createServer(app).listen(app.get('port'), function(){
+var httpserver = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+var io = require('socket.io')(httpserver);
+io.on('connection', function (socket) {
+  socket.emit('welcome', { welcome: 'welcome' });
+
+  socket.on('getPokedexDump', function (data) {
+    console.log(data.email);
+    socket.emit('PokedexDump', { pokedexDump: Pokedex.dumpPokedex(data.email) });
+  });
+
+  socket.on('seePokemon', function (data) {
+    console.log(data.email + " sees " + data.pid);
+    Pokedex.seePokemon(data.email, data.pid);
+  });
+
+  socket.on('catchPokemon', function (data) {
+    console.log(data.email + " catches " + data.pid);
+    Pokedex.catchPokemon(data.email, data.pid);
+  });
+});
+
+
+
+//var Pokedex = require('./models/PokedexSchema.js');
+//Pokedex.dumpPokedex('jack@email.com');
