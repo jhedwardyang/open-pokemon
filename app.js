@@ -74,9 +74,20 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 
-http.createServer(app).listen(app.get('port'), function(){
+var httpserver = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+var io = require('socket.io')(httpserver);
+io.on('connection', function (socket) {
+  socket.emit('welcome', { welcome: 'welcome' });
+  socket.on('getPokedexDump', function (data) {
+    console.log(data.email);
+    socket.emit('PokedexDump', { pokedexDump: Pokedex.dumpPokedex(data.email) });
+  });
+});
+
+
 
 //var Pokedex = require('./models/PokedexSchema.js');
 //Pokedex.dumpPokedex('jack@email.com');
