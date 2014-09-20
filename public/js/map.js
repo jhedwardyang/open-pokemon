@@ -535,21 +535,22 @@ setTimeout(function(){
 }, 1000);
 }
 
+// var socket = io('http://localhost:3000');
+socket = io('http://ejx.me');
+
 $(function(){
+
+  $('#challenge').click(function(){
+    console.log("challengedddd");
+    socket.emit('challenge', {});
+  });
   $('img').on('dragstart', function(event) { event.preventDefault(); });
   if(document.body.requestFullscreen) document.body.requestFullscreen();
   $(window).scrollTop($(document).height());
 });
 
-// var socket = io('http://localhost:3000');
-socket = io('http://ejx.me');
-
 socket.on('welcome', function(data) {
   socket.emit('iam', { email: email });
-});
-
-$('#challenge').click(function(){
-  socket.emit('challenge', {});
 });
 
 socket.on('playerBattle', function (data) {
