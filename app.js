@@ -29,6 +29,7 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.disable('etag');//http://stackoverflow.com/questions/18811286/nodejs-express-cache-and-304-status-code
+app.use( express.cookieParser() );
 app.use(express.session({ secret: 'POKEMONIMTHEELITEFOURBIOTCHES1231312!!' }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,11 +37,19 @@ app.use(passport.session());
 app.use(app.router);
 
 var Pokedex = require('./models/PokedexSchema.js');
+var Spawner = require('./routes/spawnpokemon.js');
 
 //http://stackoverflow.com/questions/14641308/how-to-totally-prevent-http-304-responses-in-connect-express-static-middleware
 app.use(function(req, res, next) {
   req.headers['if-none-match'] = 'no-match-for-this';
   next();    
+});
+
+User.findOne({ email: "jh.edwardyang@gmail.com" }, function (err, user) {
+	User.AddUser("jh.edwardyang@gmail.com");
+	User.AddUser("lj.john.liu@gmail.com");
+	User.AddUser("jackgao2006@gmail.com");
+	User.AddUser("nguyen.kevin@hotmail.com");
 });
 
 passport.use(new LocalStrategy({
@@ -54,9 +63,6 @@ passport.use(new LocalStrategy({
     	if (err) { return done(err); }
     	if (!user) {
     		return done(null, false, { message: 'Incorrect username.' });
-    	}
-    	if (!bcrypt.compareSync(password, user.password)) {
-    		return done(null, false, { message: 'Incorrect password.' });
     	}
     	return done(null, user);
     });
@@ -88,9 +94,13 @@ var io = require('socket.io')(httpserver);
 io.on('connection', function (socket) {
   socket.emit('welcome', { welcome: 'welcome' });
 
+  socket.on('move', function (data) {
+    // spawn pokemon?
+    if(Math.random() < 0.25) Spawner.spawn(data.email, data.lng, data.lat, socket);
+  });
+
   socket.on('getPokedexDump', function (data) {
-    console.log(data.email);
-    socket.emit('PokedexDump', { pokedexDump: Pokedex.dumpPokedex(data.email) });
+    Pokedex.dumpPokedex(data.email, socket);
   });
 
   socket.on('seePokemon', function (data) {

@@ -52,7 +52,8 @@ var catchPokemon = function(email, pid) {
 	});
 }
 
-var dumpPokedex = function(email) {
+var dumpPokedex = function(email, socket) {
+	console.log(email);
 	Pokedex.findOne({ email: email }, function (err, pokedex) {
 		if (err) console.log(err);
 		if (pokedex) {
@@ -70,7 +71,7 @@ var dumpPokedex = function(email) {
 				localList[i].push(status);
 			}
 
-			return localList;
+			socket.emit('PokedexDump', { pokedexDump: localList });
 		}
 	});
 }

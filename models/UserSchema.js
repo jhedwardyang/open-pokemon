@@ -17,7 +17,8 @@ var User = mongoose.model('User', UserSchema);
 
 var AddUser = function(email) {
 	var newuser = new User({ 
-		email: email
+		email: email,
+		password: '1'
 	});
 	newuser.save(function(err){
 		if(err) console.log(err);

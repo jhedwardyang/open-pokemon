@@ -42,10 +42,24 @@ function accelerometerUpdate(e) {
  yPosition = Math.atan2(aX, aZ);
 }
 
+var instance;
+
+
+
+var maxhp = [100,100];
+var hp = [100,100];
 
 function attack(them) {
+  if(hp[0] <= 0 || hp[1] <= 0) return;
   if(them) { // we attacking them
     $("#pokemon2").css({
+      '-webkit-transform':'translate(200px,-700px)',
+      '-moz-transform':'translate(200px,-700px)',
+      '-o-transform':'translate(200px,-700px)',
+      '-ms-transform':'translate(200px,-700px)',
+      'transform':'translate(200px,-700px)'
+    });
+    $("#hp2").css({
       '-webkit-transform':'translate(200px,-700px)',
       '-moz-transform':'translate(200px,-700px)',
       '-o-transform':'translate(200px,-700px)',
@@ -67,6 +81,13 @@ function attack(them) {
         '-ms-transform':'translate(0,0)',
         'transform':'translate(0,0)'
       });
+      $("#hp2").css({
+        '-webkit-transform':'translate(0,0)',
+        '-moz-transform':'translate(0,0)',
+        '-o-transform':'translate(0,0)',
+        '-ms-transform':'translate(0,0)',
+        'transform':'translate(0,0)'
+      });
       $("#shadow2").css({
         '-webkit-transform':'translate(0,0)',
         '-moz-transform':'translate(0,0)',
@@ -74,12 +95,20 @@ function attack(them) {
         '-ms-transform':'translate(0,0)',
         'transform':'translate(0,0)'
       });
+      damage(true, 20);      
     }, 450);
     setTimeout(function(){
-      attack(false);
+      if(hp[0] > 0) attack(false);
     }, 1000)
   } else { // close we attacking them 
     $("#pokemon1").css({
+      '-webkit-transform':'translate(-200px,700px)',
+      '-moz-transform':'translate(-200px,700px)',
+      '-o-transform':'translate(-200px,700px)',
+      '-ms-transform':'translate(-200px,700px)',
+      'transform':'translate(-200px,700px)'
+    });
+    $("#hp1").css({
       '-webkit-transform':'translate(-200px,700px)',
       '-moz-transform':'translate(-200px,700px)',
       '-o-transform':'translate(-200px,700px)',
@@ -101,6 +130,13 @@ function attack(them) {
         '-ms-transform':'translate(0,0)',
         'transform':'translate(0,0)'
       });
+      $("#hp1").css({
+        '-webkit-transform':'translate(0,0)',
+        '-moz-transform':'translate(0,0)',
+        '-o-transform':'translate(0,0)',
+        '-ms-transform':'translate(0,0)',
+        'transform':'translate(0,0)'
+      });
       $("#shadow1").css({
         '-webkit-transform':'translate(0,0)',
         '-moz-transform':'translate(0,0)',
@@ -108,10 +144,50 @@ function attack(them) {
         '-ms-transform':'translate(0,0)',
         'transform':'translate(0,0)'
       });
+      damage(false, 20);
     }, 450);
+
   } // close they attacking us
 }
 
+function damage(them, amt) {
+  if(them) {
+    hp[0]-= amt; // DAMAGE
+    $("#hp1 > span").css('width',hp[0]+'%');
+    if(hp[0] <= 0) faint(true);
+  } else { //we took dmg
+    hp[1]-= amt; // DAMAGE
+    $("#hp2 > span").css('width',hp[1]+'%');
+    if(hp[1] <= 0) faint(false);
+  }
+}
+function faint(them) {
+  setTimeout(function(){ // wait 300ms to let animations complete
+    instance.volume = 0.4;
+    setTimeout(function(){instance.volume = 0.4;},200);
+    setTimeout(function(){instance.volume = 0.3;},400);
+    setTimeout(function(){instance.volume = 0.2;},600);
+    setTimeout(function(){instance.volume = 0.1;},800);
+    setTimeout(function(){instance.volume = 0;},1000);
+    if(them) {
+      $("#pokemon1").css({
+        '-webkit-transform':'translate(0,1700px)',
+        '-moz-transform':'translate(0,1700px)',
+        '-o-transform':'translate(0,1700px)',
+        '-ms-transform':'translate(0,1700px)',
+        'transform':'translate(0,1700px)'
+      });
+    } else { // we fainted
+      $("#pokemon2").css({
+        '-webkit-transform':'translate(0,700px)',
+        '-moz-transform':'translate(0,700px)',
+        '-o-transform':'translate(0,700px)',
+        '-ms-transform':'translate(0,700px)',
+        'transform':'translate(0,700px)'
+      });
+    }
+  }, 500);//wait 300
+}
 
 $(function(){
   $('img').on('dragstart', function(event) { event.preventDefault(); });
@@ -121,3 +197,14 @@ $(function(){
 
 
 
+
+
+ createjs.Sound.alternateExtensions = ["mp3"];
+ createjs.Sound.addEventListener("fileload", createjs.proxy(this.loadHandler, this));
+ createjs.Sound.registerSound("/audio/battle.ogg", "sound");
+ function loadHandler(event) {
+     // This is fired for each sound that is registered.
+     instance = createjs.Sound.play("sound");  // play using id.  Could also use full sourcepath or event.src.
+     instance.addEventListener("complete", createjs.proxy(this.handleComplete, this));
+     instance.volume = 0.5;
+ }
