@@ -81,9 +81,20 @@ var httpserver = http.createServer(app).listen(app.get('port'), function(){
 var io = require('socket.io')(httpserver);
 io.on('connection', function (socket) {
   socket.emit('welcome', { welcome: 'welcome' });
+
   socket.on('getPokedexDump', function (data) {
     console.log(data.email);
     socket.emit('PokedexDump', { pokedexDump: Pokedex.dumpPokedex(data.email) });
+  });
+
+  socket.on('seePokemon', function (data) {
+    console.log(data.email + " sees " + data.pid);
+    Pokedex.seePokemon(data.email, data.pid);
+  });
+
+  socket.on('catchPokemon', function (data) {
+    console.log(data.email + " catches " + data.pid);
+    Pokedex.catchPokemon(data.email, data.pid);
   });
 });
 
