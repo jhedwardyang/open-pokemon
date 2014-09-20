@@ -158,8 +158,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('getEnemyRoster', function (data) {
-    console.log(data);
-    User.getEnemyRoster(data.enemyEmail, socket);
+    User.getEnemyRoster(data.email, socket);
   });
 
   socket.on('challenge', function (data) {
