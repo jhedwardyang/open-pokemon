@@ -9,15 +9,14 @@
 	window.addEventListener("devicemotion", accelerometerUpdate, true);
 	var alpha = 0.15;
 var s_T = 0;
-var max = 0;
-var ccc = 0;
+var max = -10;
+var min = 1000;
 var last = [];
 function accelerometerUpdate(e) {
-  ++ccc;
   var aX = event.accelerationIncludingGravity.x;
   var aY = event.accelerationIncludingGravity.y;
   var aZ = event.accelerationIncludingGravity.z;
-  if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) < 1.5) {
+  if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) < 1.8) {
   	//ignore
   } else {
   	$("#test").html(aX+","+aY+","+aZ);
@@ -25,8 +24,10 @@ function accelerometerUpdate(e) {
 	  var g = Math.pow(aX,2)+Math.pow(aY,2)+Math.pow(aZ,2);
 	  s_T = alpha * g + (1 - alpha) * s_T;
 	  if(g > max) max = g;
-	  if(g > s_T && g > max*2/3 && c > 30) {
+	  if(g < min) min = g;
+	  if(g > s_T && (g > max*2/3 || g < min*2/3)) {
 	    step();
+	    $("#test").html("STEPPPP!!!!!!");
 	  }
   }
   last = [aX, aY, aZ];
