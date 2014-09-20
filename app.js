@@ -35,6 +35,11 @@ app.use(passport.session());
 
 app.use(app.router);
 
+//http://stackoverflow.com/questions/14641308/how-to-totally-prevent-http-304-responses-in-connect-express-static-middleware
+app.use(function(req, res, next) {
+  req.headers['if-none-match'] = 'no-match-for-this';
+  next();    
+});
 
 
 passport.use(new LocalStrategy({
