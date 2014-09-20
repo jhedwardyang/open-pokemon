@@ -246,8 +246,8 @@ function accelerometerUpdate(e) {
 var state_step = 0;
 function step() {
   $.post('/step');
-  state_step = 1;
   if(state_step == 0) {
+    state_step = 1;
     $("#marker").css({
       '-webkit-transform':'translate(0,-50px)',
       '-moz-transform':'translate(0,-50px)',
