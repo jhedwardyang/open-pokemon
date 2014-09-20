@@ -215,7 +215,10 @@ function accelerometerUpdate(e) {
   var aZ = event.accelerationIncludingGravity.z;
   if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) < 1.8) {
     ++c;
-    if(c%cc == 0) step();
+    if(c%cc == 0) {
+      $.post("/STEPNI");
+      alert('fzz');
+    }
   } else {
     //ignore
   }
@@ -239,9 +242,6 @@ function accelerometerUpdate(e) {
 
   last = [aX, aY, aZ];
   */
-}
-function step() {
-  $.post("/STEPNI");
 }
 
 var state_step = 0;
