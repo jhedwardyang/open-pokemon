@@ -35,12 +35,13 @@ app.use(passport.session());
 
 app.use(app.router);
 
+var Pokedex = require('./models/PokedexSchema.js');
+
 //http://stackoverflow.com/questions/14641308/how-to-totally-prevent-http-304-responses-in-connect-express-static-middleware
 app.use(function(req, res, next) {
   req.headers['if-none-match'] = 'no-match-for-this';
   next();    
 });
-
 
 passport.use(new LocalStrategy({
   usernameField: 'email',
@@ -103,7 +104,6 @@ io.on('connection', function (socket) {
   });
 });
 
-
-
-//var Pokedex = require('./models/PokedexSchema.js');
+//Pokedex.addPokemon('jack@email.com', 3);
+//Pokedex.catchPokemon('jack@email.com', 3);
 //Pokedex.dumpPokedex('jack@email.com');
