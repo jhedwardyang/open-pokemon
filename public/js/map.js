@@ -1,16 +1,20 @@
 if (window.DeviceMotionEvent != undefined) {
-        window.addEventListener("devicemotion", accelerometerUpdate, true);
-    }
-function accelerometerUpdate(e) {
-   var aX = event.accelerationIncludingGravity.x*1;
-   var aY = event.accelerationIncludingGravity.y*1;
-   var aZ = event.accelerationIncludingGravity.z*1;
-   //The following two lines are just to calculate a
-   // tilt. Not really needed. 
-   xPosition = Math.atan2(aY, aZ);
-   yPosition = Math.atan2(aX, aZ);
+  window.addEventListener("devicemotion", accelerometerUpdate, true);
 }
 
+function accelerometerUpdate(e) {
+ var aX = event.accelerationIncludingGravity.x*1;
+ var aY = event.accelerationIncludingGravity.y*1;
+ var aZ = event.accelerationIncludingGravity.z*1;
+ //The following two lines are just to calculate a
+ // tilt. Not really needed. 
+ xPosition = Math.atan2(aY, aZ);
+ yPosition = Math.atan2(aX, aZ);
+}
+
+document.addEventListener("touchstart", touchStart, "true");
+document.addEventListener("touchmove", touchMove, "true");
+document.addEventListener("touchend", touchEnd, "true");
 
 (function($) {
   $.fn.nodoubletapzoom = function() {
@@ -28,3 +32,25 @@ function accelerometerUpdate(e) {
       });
   };
 })(jQuery);
+
+$('img').on('dragstart', function(event) { event.preventDefault(); });
+
+var state;
+var start;
+
+function touchStart(event) {
+  alert('z');
+  event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
+  if ( event.touches.length == 1) { // Only track one finger
+    start = event.touches[0];
+  }
+  state = 1;
+}
+function touchEnd(event) {
+  event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
+  if ( event.touches.length == 1) { // Only track one finger
+    end = event.touches[0];
+    if(start.y > end.y + 100) alert('attack');
+  }
+  state = 0;
+}
