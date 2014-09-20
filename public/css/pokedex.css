@@ -1,4 +1,7 @@
-table {
+.titleLogo {
+	padding-top: 20px;
+	padding-left: 100px;
+	padding-bottom: 20px;
 	/* color: red;
 	background:navy; */
 }
@@ -98,7 +101,7 @@ thead.fixedHeader a:hover {
 /* this enables overflow to work on TBODY element. All other non-IE, non-Mozilla browsers */
 /* induced side effect is that child TDs no longer accept width: auto                     */
 html>body tbody.scrollContent {
-	border-spacing: 0px 5px;
+	border-spacing: 0px 0px 0px 5px;
     display: block;
     height: 1800px;
     overflow: auto;
