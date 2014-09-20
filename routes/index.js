@@ -6,8 +6,8 @@ var mongoose = require('mongoose');
  */
 
 exports.index = function(req, res){
-  if(req.user) res.redirect('/map');
-  else res.redirect('/login.html');
+  if(!req.user) res.redirect('/login.html');
+  else res.redirect('/map');
 };
 exports.login = function(req, res) {
 	if(!mongoose.connection.readyState){
