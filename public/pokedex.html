@@ -47,10 +47,10 @@
 				$("body").append('<tr height = "100" id="' + pokedex[i][1] + '"">')
 				if (pokedex[i][4] > 0) {
 					var pokemon_icon = '<img src="images/pokemon/' + pokedex[i][1].toLowerCase() + '.gif" alt="" border=0 height=' + imageSize + ' width=' + imageSize + '></img>'
-					var type1_icon = '<img src="images/icon/types/' + pokedex[i][2] + '.png" alt="" border=0 height=' + imageSize/3 + ' width=' + imageSize/2 + '></img>'
+					var type1_icon = '<img src="images/Icon/Types/' + pokedex[i][2] + '.png" alt="" border=0 height=' + imageSize/3 + ' width=' + imageSize/2 + '></img>'
 					var type2_icon = ''
 					if (pokedex[i][3] != "")
-						var type2_icon = '<img src="images/icon/types/' + pokedex[i][3] + '.png" alt="" border=0 height=' + imageSize/3 + ' width=' + imageSize/2 + '></img>'
+						var type2_icon = '<img src="images/Icon/Types/' + pokedex[i][3] + '.png" alt="" border=0 height=' + imageSize/3 + ' width=' + imageSize/2 + '></img>'
 
 				   	$("#"+pokedex[i][1]).append('<td>' + pokemon_icon + '</td>')
 				    $("#"+pokedex[i][1]).append('<td>No' + pokedex[i][0] + '</td>')
@@ -64,7 +64,7 @@
 					else
 						$("#"+pokedex[i][1]).append('<td></td>')
 				} else {
-					var pokemon_icon = 'images/icon/question-icon.png'
+					var pokemon_icon = 'images/Icon/question-icon.png'
 				   	$("#"+pokedex[i][1]).append('<td><img src="' + pokemon_icon + '" alt="" border=0 height=' + imageSize + ' width=' + imageSize + '></img></td>')
 				    $("#"+pokedex[i][1]).append('<td>No' + pokedex[i][0] + '</td>')
 				    $("#"+pokedex[i][1]).append('<td>' + "????" + '</td>')
