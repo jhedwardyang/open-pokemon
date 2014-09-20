@@ -10,16 +10,14 @@ if (window.DeviceMotionEvent != undefined) {
 
 var start;
 function touchStart(event) {
-  event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
   if ( event.touches.length == 1) { // Only track one finger
     start = event.touches[0];
   }
 }
 function touchEnd(event) {
-  event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
   var end = event.touches[0];
-  alert(start.x + ' ' + start.y + ' | ' + end.x + ' ' + end.y);
-  if(start.y > (end.y + 600)) alert('attack');
+  alert(start.pageX + ' ' + start.pageY + ' | ' + end.pageX + ' ' + end.pageY);
+  if(start.pageY > (end.pageY + 600)) alert('attack');
 }
 
 function accelerometerUpdate(e) {
