@@ -44,23 +44,72 @@ function accelerometerUpdate(e) {
 
 
 function attack(them) {
-  console.log('att');
-  $("#pokemon2").css({
-    '-webkit-transform':'translate(200px,-700px)',
-    '-moz-transform':'translate(200px,-700px)',
-    '-o-transform':'translate(200px,-700px)',
-    '-ms-transform':'translate(200px,-700px)',
-    'transform':'translate(200px,-700px)'
-  });
-  setTimeout(function(){
+  if(them) { // we attacking them
     $("#pokemon2").css({
-      '-webkit-transform':'translate(0,0)',
-      '-moz-transform':'translate(0,0)',
-      '-o-transform':'translate(0,0)',
-      '-ms-transform':'translate(0,0)',
-      'transform':'translate(0,0)'
+      '-webkit-transform':'translate(200px,-700px)',
+      '-moz-transform':'translate(200px,-700px)',
+      '-o-transform':'translate(200px,-700px)',
+      '-ms-transform':'translate(200px,-700px)',
+      'transform':'translate(200px,-700px)'
     });
-  }, 450);
+    $("#shadow2").css({
+      '-webkit-transform':'translate(230px,-550px)',
+      '-moz-transform':'translate(230px,-550px)',
+      '-o-transform':'translate(230px,-550px)',
+      '-ms-transform':'translate(230px,-550px)',
+      'transform':'translate(230px,-550px)'
+    });
+    setTimeout(function(){
+      $("#pokemon2").css({
+        '-webkit-transform':'translate(0,0)',
+        '-moz-transform':'translate(0,0)',
+        '-o-transform':'translate(0,0)',
+        '-ms-transform':'translate(0,0)',
+        'transform':'translate(0,0)'
+      });
+      $("#shadow2").css({
+        '-webkit-transform':'translate(0,0)',
+        '-moz-transform':'translate(0,0)',
+        '-o-transform':'translate(0,0)',
+        '-ms-transform':'translate(0,0)',
+        'transform':'translate(0,0)'
+      });
+    }, 450);
+    setTimeout(function(){
+      attack(false);
+    }, 1000)
+  } else { // close we attacking them 
+    $("#pokemon1").css({
+      '-webkit-transform':'translate(-200px,700px)',
+      '-moz-transform':'translate(-200px,700px)',
+      '-o-transform':'translate(-200px,700px)',
+      '-ms-transform':'translate(-200px,700px)',
+      'transform':'translate(-200px,700px)'
+    });
+    $("#shadow1").css({
+      '-webkit-transform':'translate(-170px,550px)',
+      '-moz-transform':'translate(-230px,550px)',
+      '-o-transform':'translate(-230px,550px)',
+      '-ms-transform':'translate(-230px,550px)',
+      'transform':'translate(-170px,800px)'
+    });
+    setTimeout(function(){
+      $("#pokemon1").css({
+        '-webkit-transform':'translate(0,0)',
+        '-moz-transform':'translate(0,0)',
+        '-o-transform':'translate(0,0)',
+        '-ms-transform':'translate(0,0)',
+        'transform':'translate(0,0)'
+      });
+      $("#shadow1").css({
+        '-webkit-transform':'translate(0,0)',
+        '-moz-transform':'translate(0,0)',
+        '-o-transform':'translate(0,0)',
+        '-ms-transform':'translate(0,0)',
+        'transform':'translate(0,0)'
+      });
+    }, 450);
+  } // close they attacking us
 }
 
 
