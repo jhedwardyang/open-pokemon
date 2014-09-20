@@ -9,5 +9,5 @@ function accelerometerUpdate(e) {
    // tilt. Not really needed. 
    xPosition = Math.atan2(aY, aZ);
    yPosition = Math.atan2(aX, aZ);
-   $("#test").append(aX + " " + aY + " " + aZ + " \n <br />");
+   $("#test").prepend(aX + " " + aY + " " + aZ + " \n <br />");
 }
