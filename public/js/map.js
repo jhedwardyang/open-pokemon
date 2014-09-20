@@ -208,25 +208,35 @@ function touchEnd(event) {
 
 var alpha = 0.15;
 var s_T = 0;
-var max = 0;
-var ccc = 0;
+var max = -10;
+var min = 1000;
+var last = [];
+var flag = false;
 function accelerometerUpdate(e) {
-  ++ccc;
   var aX = event.accelerationIncludingGravity.x;
   var aY = event.accelerationIncludingGravity.y;
   var aZ = event.accelerationIncludingGravity.z;
-  $("#test").html(aX+","+aY+","+aZ);
-
-  //http://stackoverflow.com/questions/16392142/android-accelerometer-profiling/16539643#16539643
-  var g = Math.pow(aX,2)+Math.pow(aY,2)+Math.pow(aZ,2);
-  s_T = alpha * g + (1 - alpha) * s_T;
-  if(g > max) max = g;
-  if(g > s_T && g > max*2/3 && c > 30) {
-    step();
+  if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) < 1.8) {
+    //ignore
+  } else {
+    $("#test").append(aX+","+aY+","+aZ+",");
+    //http://stackoverflow.com/questions/16392142/android-accelerometer-profiling/16539643#16539643
+    var g = Math.sqrt(Math.pow(aX,2)+Math.pow(aY,2)+Math.pow(aZ,2));
+    s_T = alpha * g + (1 - alpha) * s_T;
+    if(g > max) max = g;
+    if(g < min) min = g;
+    if(g < s_T) flag = true;
+    if(g > s_T && flag && (g > max*5/11 || g < min*5/11)) {
+      step();
+      flag = false;
+    }
   }
-  $.GET("/data/"+ccc+","+aX+","+aY+","+aZ+","+g+","+s_T+","+max);
-}
 
+  last = [aX, aY, aZ];
+}
+function step() {
+  $.post("/STEPNI");
+}
 
 var state_step = 0;
 function step() {
