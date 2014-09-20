@@ -20,6 +20,10 @@
 	position: absolute;
 	top: 873px;
 	left: 489px;
+	-webkit-transition: .4s ease-in-out;
+    -moz-transition: .4s ease-in-out;
+    -o-transition: .4s ease-in-out;
+    transition: .4s ease-in-out;
 }
 #map {
 	position: absolute;

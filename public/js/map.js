@@ -206,17 +206,52 @@ function touchEnd(event) {
   if(start.pageY > (end.pageY + 550)) attack(true);
 }
 
+var alpha = 0.15;
+var s_T = 0;
+var max = 0;
+var ccc = 0;
 function accelerometerUpdate(e) {
- var aX = event.accelerationIncludingGravity.x*1;
- var aY = event.accelerationIncludingGravity.y*1;
- var aZ = event.accelerationIncludingGravity.z*1;
- //The following two lines are just to calculate a
- // tilt. Not really needed. 
- xPosition = Math.atan2(aY, aZ);
- yPosition = Math.atan2(aX, aZ);
+  ++ccc;
+  var aX = event.accelerationIncludingGravity.x;
+  var aY = event.accelerationIncludingGravity.y;
+  var aZ = event.accelerationIncludingGravity.z;
+
+  //http://stackoverflow.com/questions/16392142/android-accelerometer-profiling/16539643#16539643
+  var g = Math.pow(aX,2)+Math.pow(aY,2)+Math.pow(aZ,2);
+  s_T = alpha * g + (1 - alpha) * s_T;
+  if(g > max) max = g;
+  if(g > s_T && g > max*2/3 && c > 30) {
+    step();
+  }
 }
 
 
+var state_step = 0;
+function step() {
+  state_step = 1;
+  if(state_step == 0) {
+    $("#marker").css({
+      '-webkit-transform':'translate(0,-20px)',
+      '-moz-transform':'translate(0,-20px)',
+      '-o-transform':'translate(0,-20px)',
+      '-ms-transform':'translate(0,-20px)',
+      'transform':'translate(0,-20px)'
+    });
+    setTimeout(function(){
+      $("#marker").css({
+        '-webkit-transform':'translate(0,0)',
+        '-moz-transform':'translate(0,0)',
+        '-o-transform':'translate(0,0)',
+        '-ms-transform':'translate(0,0)',
+        'transform':'translate(0,0)'
+      });
+    }, 500);
+    setTimeout(function(){
+      
+      state_step = 0;
+    }, 1000);
+  }
+}
 var instance;
 
 
