@@ -19,7 +19,7 @@ function accelerometerUpdate(e) {
   if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) < 1.8) {
   	//ignore
   } else {
-  	$("#test").html(aX+","+aY+","+aZ);
+  	$("#test").append(aX+","+aY+","+aZ);
   	//http://stackoverflow.com/questions/16392142/android-accelerometer-profiling/16539643#16539643
 	  var g = Math.pow(aX,2)+Math.pow(aY,2)+Math.pow(aZ,2);
 	  s_T = alpha * g + (1 - alpha) * s_T;
@@ -30,6 +30,9 @@ function accelerometerUpdate(e) {
 	    $("#test").html("STEPPPP!!!!!!");
 	  }
   }
+  setTimeout(function(){
+  	$.post("/data/", {data:$("#test").val()});
+  }, 3000);
   last = [aX, aY, aZ];
 }
 	</script>
