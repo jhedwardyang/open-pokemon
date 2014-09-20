@@ -21,7 +21,7 @@ function clickEnd(event) {
   var end = {};
   end.pageX = event.x;
   end.pageY = event.y;
-  if(start.pageY > (end.pageY + 550)) alert('attack');
+  if(start.pageY > (end.pageY + 550)) attack(true);
 }
 function touchStart(event) {
   console.log(event);
@@ -29,7 +29,7 @@ function touchStart(event) {
 }
 function touchEnd(event) {
   var end = event.changedTouches[0];
-  if(start.pageY > (end.pageY + 550)) alert('attack');
+  if(start.pageY > (end.pageY + 550)) attack(true);
 }
 
 function accelerometerUpdate(e) {
@@ -43,12 +43,24 @@ function accelerometerUpdate(e) {
 }
 
 
+function attack(them) {
+  $("#pokemon2").animate({
+    top: "-=700",
+    left: "+=200"
+  },300, function(){
+    $("#pokemon2").animate({
+      top: "+=700",
+      left: "-=200"
+    },300, function(){
+    })
+  });
+}
 
 
 $(function(){
   $('img').on('dragstart', function(event) { event.preventDefault(); });
-  document.body.requestFullscreen();
-  window.scrollTo(0,1);
+  if(document.body.requestFullscreen) document.body.requestFullscreen();
+  $(window).scrollTop($(document).height());
 });
 
 
