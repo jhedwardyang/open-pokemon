@@ -86,6 +86,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+app.get('/data', function(req, res) {
+  console.log(req.body.data);
+  res.redirect('/');
+});
 app.get('/', routes.index);
 app.get('/login', function(req, res) {
   res.redirect('/login.html');
