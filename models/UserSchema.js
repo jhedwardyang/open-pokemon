@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	ObjectId = Schema.ObjectId;
+	ObjectId = Schema.ObjectId,
+	Pokedex = require('../models/PokedexSchema');
 
 
 var UserSchema = new Schema({
@@ -21,6 +22,7 @@ var AddUser = function(email) {
 	newuser.save(function(err){
 		if(err) console.log(err);
 	});
+	Pokedex.addPokedex(email);
 }
 
 User.AddUser = AddUser;
