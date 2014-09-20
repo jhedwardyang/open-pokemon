@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>ME TEST</title>
+	</head>
+<body>
+	<div id="test"></div>
+	<script type="text/javascript" src="/assets/jquery-2.1.1.min/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript">
+	window.addEventListener("devicemotion", accelerometerUpdate, true);
+	var alpha = 0.15;
+var s_T = 0;
+var max = 0;
+var ccc = 0;
+function accelerometerUpdate(e) {
+  ++ccc;
+  var aX = event.accelerationIncludingGravity.x;
+  var aY = event.accelerationIncludingGravity.y;
+  var aZ = event.accelerationIncludingGravity.z;
+  $("#test").html(aX+","+aY+","+aZ);
+
+  //http://stackoverflow.com/questions/16392142/android-accelerometer-profiling/16539643#16539643
+  var g = Math.pow(aX,2)+Math.pow(aY,2)+Math.pow(aZ,2);
+  s_T = alpha * g + (1 - alpha) * s_T;
+  if(g > max) max = g;
+  if(g > s_T && g > max*2/3 && c > 30) {
+    step();
+  }
+  $.GET("/data/"+ccc+","+aX+","+aY+","+aZ+","+g+","+s_T+","+max);
+}
+	</script>
+</body>
+</html>
