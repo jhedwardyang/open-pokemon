@@ -327,25 +327,25 @@ function faint(them) {
     setTimeout(function(){instance.volume = 0;},1000);
     if(them) {
       $("#pokemon1").css({
-        '-webkit-transform':'translate(0,1700px)',
-        '-moz-transform':'translate(0,1700px)',
-        '-o-transform':'translate(0,1700px)',
-        '-ms-transform':'translate(0,1700px)',
-        'transform':'translate(0,1700px)'
+        '-webkit-transform':'translate(0,1100px)',
+        '-moz-transform':'translate(0,1100px)',
+        '-o-transform':'translate(0,1100px)',
+        '-ms-transform':'translate(0,1100px)',
+        'transform':'translate(0,1100px)'
       });
       $("#hp1").css({
-        '-webkit-transform':'translate(0,1700px)',
-        '-moz-transform':'translate(0,1700px)',
-        '-o-transform':'translate(0,1700px)',
-        '-ms-transform':'translate(0,1700px)',
-        'transform':'translate(0,1700px)'
+        '-webkit-transform':'translate(0,1100px)',
+        '-moz-transform':'translate(0,1100px)',
+        '-o-transform':'translate(0,1100px)',
+        '-ms-transform':'translate(0,1100px)',
+        'transform':'translate(0,1100px)'
       });
       $("#shadow1").css({
-        '-webkit-transform':'translate(0,1700px)',
-        '-moz-transform':'translate(0,1700px)',
-        '-o-transform':'translate(0,1700px)',
-        '-ms-transform':'translate(0,1700px)',
-        'transform':'translate(0,1700px)'
+        '-webkit-transform':'translate(0,1100px)',
+        '-moz-transform':'translate(0,1100px)',
+        '-o-transform':'translate(0,1100px)',
+        '-ms-transform':'translate(0,1100px)',
+        'transform':'translate(0,1100px)'
       });
       setTimeout(function(){
         $("#shadow1").css('opacity','0');
