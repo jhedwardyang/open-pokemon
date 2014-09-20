@@ -82,12 +82,10 @@ var getRoster = function(email, socket) {
 }
 
 var getEnemyRoster = function(email, socket) {
+	console.log(email);
 	User.findOne({ email: email }, function (err, user) {
 		if (err) console.log(err);
-		if (user) {
-			socket.emit('enemyRoster', user.roster);
-			console.log(user.roster);
-		}
+		if (user) socket.emit('enemyRoster', user.roster);
 	});
 }
 
