@@ -319,33 +319,27 @@ function damage(them, amt) {
 }
 function faint(them) {
   setTimeout(function(){ // wait 300ms to let animations complete
-    // instance.volume = 0.4;
-    // setTimeout(function(){instance.volume = 0.4;},200);
-    // setTimeout(function(){instance.volume = 0.3;},400);
-    // setTimeout(function(){instance.volume = 0.2;},600);
-    // setTimeout(function(){instance.volume = 0.1;},800);
-    // setTimeout(function(){instance.volume = 0;},1000);
     if(them) {
       $("#pokemon1").css({
-        '-webkit-transform':'translate(0,1100px)',
-        '-moz-transform':'translate(0,1100px)',
-        '-o-transform':'translate(0,1100px)',
-        '-ms-transform':'translate(0,1100px)',
-        'transform':'translate(0,1100px)'
+        '-webkit-transform':'translate(0,1700px)',
+        '-moz-transform':'translate(0,1700px)',
+        '-o-transform':'translate(0,1700px)',
+        '-ms-transform':'translate(0,1700px)',
+        'transform':'translate(0,1700px)'
       });
       $("#hp1").css({
-        '-webkit-transform':'translate(0,1100px)',
-        '-moz-transform':'translate(0,1100px)',
-        '-o-transform':'translate(0,1100px)',
-        '-ms-transform':'translate(0,1100px)',
-        'transform':'translate(0,1100px)'
+        '-webkit-transform':'translate(0,1700px)',
+        '-moz-transform':'translate(0,1700px)',
+        '-o-transform':'translate(0,1700px)',
+        '-ms-transform':'translate(0,1700px)',
+        'transform':'translate(0,1700px)'
       });
       $("#shadow1").css({
-        '-webkit-transform':'translate(0,1100px)',
-        '-moz-transform':'translate(0,1100px)',
-        '-o-transform':'translate(0,1100px)',
-        '-ms-transform':'translate(0,1100px)',
-        'transform':'translate(0,1100px)'
+        '-webkit-transform':'translate(0,1700px)',
+        '-moz-transform':'translate(0,1700px)',
+        '-o-transform':'translate(0,1700px)',
+        '-ms-transform':'translate(0,1700px)',
+        'transform':'translate(0,1700px)'
       });
       setTimeout(function(){
         $("#shadow1").css('opacity','0');
