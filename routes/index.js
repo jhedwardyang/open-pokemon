@@ -17,5 +17,9 @@ exports.login = function(req, res) {
 }
 exports.map = function(req, res) {
 	if(!req.user) res.redirect('/login.html');
-	else res.render('map');
+	else res.render('map', { email: req.user.email });
+}
+exports.logout = function (req, res) {
+	req.logout();
+	res.redirect('/');
 }

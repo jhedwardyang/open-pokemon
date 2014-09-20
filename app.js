@@ -87,8 +87,28 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.post('/login', passport.authenticate('local', { failureRedirect: '/login.html'}), routes.login);
+app.get('/login', function(req, res) {
+  res.redirect('/login.html');
+});
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if(req.body.email != "") {
+      if (!user) { 
+        User.AddUser( req.body.email );
+        User.findOne({ email: req.body.email }, function (err, zz) {
+          req.login(zz, function(error){});
+        });
+      } else {
+        req.login(user, function(error){});
+      }
+      res.redirect('/map');
+     } else {
+      res.redirect('/');
+     }
+  })(req,res,next);
+});
 app.get('/map', routes.map);
+app.get('/logout', routes.logout);
 
 var httpserver = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
