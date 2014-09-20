@@ -552,7 +552,6 @@ socket.on('welcome', function(data) {
 socket.on('playerBattle', function (data) {
   isPvP = true;
   enemyEmail = data.enemyEmail;
-  console.log(enemyEmail);
 
   $("#overlay").fadeTo("slow", 0);
   $("#map").fadeTo("slow", 0);
@@ -573,7 +572,7 @@ socket.on('playerBattle', function (data) {
 
 socket.on('enemyRoster', function(data){
   // console.log(data);
-  
+  console.log(data);
  setTimeout(function(){
     $("#pokemon1").attr('src', '/images/pokemon/'+pkall[data[0].pid][1].toLowerCase()+'.gif');
     $("#battle").fadeTo( "slow", 1 );
@@ -611,6 +610,7 @@ socket.on('getAttacked', function(data){
 
 socket.on('roster', function(data){
   // console.log(data);
+  console.log(data);
   
  setTimeout(function(){
   $("#pokemon2").attr('src', '/images/pokemon/'+pkall[data[0].pid][1].toLowerCase()+'-(1).gif');
