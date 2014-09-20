@@ -135,10 +135,7 @@ io.on('connection', function (socket) {
   socket.on('move', function (data) {
     var r = Math.random();
     // console.log(r);
-    //if(r < 0.15) Spawner.spawn(data.email, data.lng, data.lat, socket);
-  
-    connections['jack@email.com'].emit('playerBattle', {enemyEmail: 'john@email.com'});
-    connections['john@email.com'].emit('playerBattle', {enemyEmail: 'jack@email.com'});
+    if(r < 0.15) Spawner.spawn(data.email, data.lng, data.lat, socket);
   });
 
   socket.on('getPokedexDump', function (data) {
@@ -162,6 +159,11 @@ io.on('connection', function (socket) {
 
   socket.on('getEnemyRoster', function (data) {
     User.getEnemyRoster(data.enemyEmail, socket);
+  });
+
+  socket.on('challenge', function (data) {
+    connections['jack@email.com'].emit('playerBattle', {enemyEmail: 'john@email.com'});
+    connections['john@email.com'].emit('playerBattle', {enemyEmail: 'jack@email.com'});
   });
 
   socket.on('attack', function (data) {
