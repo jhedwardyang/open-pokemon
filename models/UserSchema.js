@@ -81,7 +81,15 @@ var getRoster = function(email, socket) {
 	});
 }
 
+var getEnemyRoster = function(email, socket) {
+	User.findOne({ email: email }, function (err, user) {
+		if (err) console.log(err);
+		if (user) socket.emit('enemyRoster', user.roster);
+	});
+}
+
 User.AddUser = AddUser;
 User.catchPokemon = catchPokemon;
 User.getRoster = getRoster;
+User.getEnemyRoster = getEnemyRoster;
 module.exports = User;

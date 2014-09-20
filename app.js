@@ -123,12 +123,19 @@ var httpserver = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+var connections = [];
+
 var io = require('socket.io')(httpserver);
 io.on('connection', function (socket) {
   socket.emit('welcome', { welcome: 'welcome' });
+  socket.on('iam', function (data) {
+    connections[data.email] = socket;
+  });
+
   socket.on('move', function (data) {
-    // spawn pokemon?
-    if(Math.random() < 0.25) Spawner.spawn(data.email, data.lng, data.lat, socket);
+    var r = Math.random();
+    // console.log(r);
+    if(r < 0.15) Spawner.spawn(data.email, data.lng, data.lat, socket);
   });
 
   socket.on('getPokedexDump', function (data) {
@@ -148,6 +155,20 @@ io.on('connection', function (socket) {
 
   socket.on('getRoster', function (data) {
     User.getRoster(data.email, socket);
+  });
+
+  socket.on('getEnemyRoster', function (data) {
+    console.log("sabrina is a poopoo head");
+    User.getEnemyRoster(data.enemyEmail, socket);
+  });
+
+  socket.on('challenge', function (data) {
+    connections['jack@email.com'].emit('playerBattle', {enemyEmail: 'john@email.com'});
+    connections['john@email.com'].emit('playerBattle', {enemyEmail: 'jack@email.com'});
+  });
+
+  socket.on('attack', function (data) {
+    connections[data.enemyEmail].emit('getAttacked', {});
   });
 });
 
