@@ -36,6 +36,7 @@ app.use(passport.session());
 app.use(app.router);
 
 var Pokedex = require('./models/PokedexSchema.js');
+var Spawner = require('./routes/spawnpokemon.js');
 
 //http://stackoverflow.com/questions/14641308/how-to-totally-prevent-http-304-responses-in-connect-express-static-middleware
 app.use(function(req, res, next) {
@@ -87,6 +88,11 @@ var httpserver = http.createServer(app).listen(app.get('port'), function(){
 var io = require('socket.io')(httpserver);
 io.on('connection', function (socket) {
   socket.emit('welcome', { welcome: 'welcome' });
+
+  socket.on('move', function (data) {
+    // spawn pokemon?
+    if(Math.random() < 0.25) Spawner.spawn(data.email, data.lng, data.lat, socket);
+  });
 
   socket.on('getPokedexDump', function (data) {
     Pokedex.dumpPokedex(data.email, socket);
