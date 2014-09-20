@@ -35,7 +35,7 @@ app.use(passport.session());
 
 app.use(app.router);
 
-
+var Pokedex = require('./models/PokedexSchema.js');
 
 passport.use(new LocalStrategy({
   usernameField: 'email',
@@ -98,7 +98,6 @@ io.on('connection', function (socket) {
   });
 });
 
-
-
-//var Pokedex = require('./models/PokedexSchema.js');
+//Pokedex.addPokemon('jack@email.com', 3);
+//Pokedex.catchPokemon('jack@email.com', 3);
 //Pokedex.dumpPokedex('jack@email.com');
