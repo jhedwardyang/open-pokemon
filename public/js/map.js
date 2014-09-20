@@ -20,7 +20,9 @@ function GetLocation(location) {
             mapOptions);
       }
       google.maps.event.addDomListener(window, 'load', initialize);
-
+audiojs.events.ready(function() {
+        audiojs.createAll();
+      });
 var pkall = [
   ["001", "Bulbasaur", "Grass", "Poison"],
   ["002", "Ivysaur", "Grass", "Poison"],
@@ -277,7 +279,8 @@ function step() {
     }, 1000);
   }
 }
-var instance;
+
+
 
 
 
@@ -432,7 +435,7 @@ function faint(them) {
             '-moz-transform':'translate(0,0)',
             '-o-transform':'translate(0,0)',
             '-ms-transform':'translate(0,0)',
-            'transform':'translate(0,700px)'
+            'transform':'translate(0,0)'
           });
           $("#hp1").css({
             '-webkit-transform':'translate(0,0)',
@@ -482,7 +485,7 @@ function faint(them) {
             '-moz-transform':'translate(0,0)',
             '-o-transform':'translate(0,0)',
             '-ms-transform':'translate(0,0)',
-            'transform':'translate(0,700px)'
+            'transform':'translate(0,0)'
           });
           $("#hp2").css({
             '-webkit-transform':'translate(0,0)',
@@ -505,8 +508,19 @@ function faint(them) {
 setTimeout(function(){
   $("#overlay").fadeTo("slow", 1);
   $("#map").fadeTo("slow", 1);
-
+  $("#m1").trigger('stop');
+  $("#m2").trigger('play');
 }, 1000);
+
+// CLEANUP
+hp[0] = maxhp[0];
+hp[1] = maxhp[1];
+$("#shadow1").css('opacity','1');
+$("#hp1").css('opacity','1');
+$("#pokemon1").css('opacity','1');
+$("#shadow2").css('opacity','1');
+$("#hp2").css('opacity','1');
+$("#pokemon2").css('opacity','1');
 }
 
 $(function(){
@@ -515,25 +529,17 @@ $(function(){
   $(window).scrollTop($(document).height());
 });
 
-var bg = 0;
-createjs.Sound.alternateExtensions = ["mp3"];
- createjs.Sound.addEventListener("fileload", createjs.proxy(this.loadHandler, this));
- createjs.Sound.registerSound("/audio/battle.ogg", "sound");
- function loadHandler(event) {
-    bg = 1;
-     
- }
 
 
-// var socket = io('http://localhost:3000');
-var socket = io('http://ejx.me');
+var socket = io('http://localhost:3000');
+// var socket = io('http://ejx.me');
 socket.on('spawnPokemon', function (data) {
-  if(bg == 1) {
-    instance = createjs.Sound.play("sound");  // play using id.  Could also use full sourcepath or event.src.
-    instance.volume = 0.5;
- }
+
   $("#overlay").fadeTo("slow", 0);
   $("#map").fadeTo("slow", 0);
+
+  $("#m1").trigger('play');
+  $("#m2").trigger('pause');
 
   // console.log(data);
   $("#pokemon1").attr('src', '/images/pokemon/'+pkall[data.pokemon.pid][1].toLowerCase()+'.gif');
