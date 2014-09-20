@@ -245,14 +245,15 @@ function accelerometerUpdate(e) {
 
 var state_step = 0;
 function step() {
+  $.post('/step');
   state_step = 1;
   if(state_step == 0) {
     $("#marker").css({
-      '-webkit-transform':'translate(0,-20px)',
-      '-moz-transform':'translate(0,-20px)',
-      '-o-transform':'translate(0,-20px)',
-      '-ms-transform':'translate(0,-20px)',
-      'transform':'translate(0,-20px)'
+      '-webkit-transform':'translate(0,-50px)',
+      '-moz-transform':'translate(0,-50px)',
+      '-o-transform':'translate(0,-50px)',
+      '-ms-transform':'translate(0,-50px)',
+      'transform':'translate(0,-50px)'
     });
     setTimeout(function(){
       $("#marker").css({
