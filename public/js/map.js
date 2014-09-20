@@ -446,7 +446,7 @@ socket.on('spawnPokemon', function (data) {
   // console.log(data);
   $("#pokemon1").attr('src', '/images/pokemon/'+pkall[data.pokemon.pid][1].toLowerCase()+'.gif');
   
-  socket.emit('getRoster', {'email': 'jh.edwardyang@gmail.com'});
+  socket.emit('getRoster', {'email': $("#ee").val()});
 });
 socket.on('roster', function(data){
   console.log(data);
