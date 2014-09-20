@@ -53,6 +53,7 @@ var catchPokemon = function(email, pid) {
 }
 
 var dumpPokedex = function(email) {
+	console.log(email);
 	Pokedex.findOne({ email: email }, function (err, pokedex) {
 		if (err) console.log(err);
 		if (pokedex) {
@@ -69,7 +70,7 @@ var dumpPokedex = function(email) {
 
 				localList[i].push(status);
 			}
-
+			console.log(localList);
 			return localList;
 		}
 	});
