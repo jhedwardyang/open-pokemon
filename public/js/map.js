@@ -18,6 +18,7 @@ function touchStart(event) {
 function touchEnd(event) {
   event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
   var end = event.touches[0];
+  alert(start.x + ' ' + start.y + ' | ' + end.x + ' ' + end.y);
   if(start.y > (end.y + 600)) alert('attack');
 }
 
