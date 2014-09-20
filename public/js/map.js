@@ -8,22 +8,19 @@ if (window.DeviceMotionEvent != undefined) {
   document.addEventListener("touchend", touchEnd, true);
 }
 
-var state;
 var start;
-
 function touchStart(event) {
-  alert('z');
   event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
   if ( event.touches.length == 1) { // Only track one finger
     start = event.touches[0];
   }
-  state = 1;
 }
 function touchEnd(event) {
   event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
-  end = event.touches[0];
+  var end = event.touches[0];
   if(start.y > (end.y + 600)) alert('attack');
 }
+
 function accelerometerUpdate(e) {
  var aX = event.accelerationIncludingGravity.x*1;
  var aY = event.accelerationIncludingGravity.y*1;
