@@ -84,7 +84,10 @@ var getRoster = function(email, socket) {
 var getEnemyRoster = function(email, socket) {
 	User.findOne({ email: email }, function (err, user) {
 		if (err) console.log(err);
-		if (user) socket.emit('enemyRoster', user.roster);
+		if (user) {
+			socket.emit('enemyRoster', user.roster);
+			console.log(user.roster);
+		}
 	});
 }
 
