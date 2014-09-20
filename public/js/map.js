@@ -29,8 +29,7 @@ function touchStart(event) {
 }
 function touchEnd(event) {
   var end = event.changedTouches[0];
-  alert(start.pageX + ' ' + start.pageY + ' | ' + end.pageX + ' ' + end.pageY);
-  if(start.pageY > (end.pageY + 500)) alert('attack');
+  if(start.pageY > (end.pageY + 550)) alert('attack');
 }
 
 function accelerometerUpdate(e) {
@@ -48,7 +47,7 @@ function accelerometerUpdate(e) {
 
 $(function(){
   $('img').on('dragstart', function(event) { event.preventDefault(); });
-  // document.body.requestFullscreen();
+  document.body.requestFullscreen();
   window.scrollTo(0,1);
 });
 
