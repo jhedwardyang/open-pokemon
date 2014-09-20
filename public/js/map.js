@@ -46,6 +46,7 @@ var instance;
 
 
 
+var pokemon = ['charizard', 'vulpix'];
 var maxhp = [100,100];
 var hp = [100,100];
 
@@ -177,6 +178,25 @@ function faint(them) {
         '-ms-transform':'translate(0,1700px)',
         'transform':'translate(0,1700px)'
       });
+      $("#hp1").css({
+        '-webkit-transform':'translate(0,1700px)',
+        '-moz-transform':'translate(0,1700px)',
+        '-o-transform':'translate(0,1700px)',
+        '-ms-transform':'translate(0,1700px)',
+        'transform':'translate(0,1700px)'
+      });
+      $("#shadow1").css({
+        '-webkit-transform':'translate(0,1700px)',
+        '-moz-transform':'translate(0,1700px)',
+        '-o-transform':'translate(0,1700px)',
+        '-ms-transform':'translate(0,1700px)',
+        'transform':'translate(0,1700px)'
+      });
+      setTimeout(function(){
+        $("#shadow1").css('opacity','0');
+        $("#hp1").css('opacity','0');
+        $("#pokemon1").css('opacity','0');
+      }, 500);
     } else { // we fainted
       $("#pokemon2").css({
         '-webkit-transform':'translate(0,700px)',
@@ -185,11 +205,32 @@ function faint(them) {
         '-ms-transform':'translate(0,700px)',
         'transform':'translate(0,700px)'
       });
+      $("#hp2").css({
+        '-webkit-transform':'translate(0,700px)',
+        '-moz-transform':'translate(0,700px)',
+        '-o-transform':'translate(0,700px)',
+        '-ms-transform':'translate(0,700px)',
+        'transform':'translate(0,700px)'
+      });
+      $("#shadow2").css({
+        '-webkit-transform':'translate(0,700px)',
+        '-moz-transform':'translate(0,700px)',
+        '-o-transform':'translate(0,700px)',
+        '-ms-transform':'translate(0,700px)',
+        'transform':'translate(0,700px)'
+      });
+      setTimeout(function(){
+        $("#shadow2").css('opacity','0');
+        $("#hp2").css('opacity','0');
+        $("#pokemon2").css('opacity','0');
+      }, 500);
     }
   }, 500);//wait 300
 }
 
 $(function(){
+  $("#pokemon1").attr('src', '/images/pokemon/'+pokemon[0]+'.gif');
+  $("#pokemon2").attr('src', '/images/pokemon/'+pokemon[1]+'-(1).gif');
   $('img').on('dragstart', function(event) { event.preventDefault(); });
   if(document.body.requestFullscreen) document.body.requestFullscreen();
   $(window).scrollTop($(document).height());
