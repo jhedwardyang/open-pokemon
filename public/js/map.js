@@ -10,9 +10,7 @@ if (window.DeviceMotionEvent != undefined) {
 
 var start;
 function touchStart(event) {
-  if ( event.touches.length == 1) { // Only track one finger
-    start = event.touches[0];
-  }
+  start = event.touches[0];
 }
 function touchEnd(event) {
   var end = event.touches[0];
@@ -33,22 +31,7 @@ function accelerometerUpdate(e) {
 
 
 
-(function($) {
-  $.fn.nodoubletapzoom = function() {
-      $(this).bind('touchstart', function preventZoom(e) {
-        var t2 = e.timeStamp
-          , t1 = $(this).data('lastTouch') || t2
-          , dt = t2 - t1
-          , fingers = e.originalEvent.touches.length;
-        $(this).data('lastTouch', t2);
-        if (!dt || dt > 500 || fingers > 1) return; // not double-tap
-
-        e.preventDefault(); // double tap - prevent the zoom
-        // also synthesize click events we just swallowed up
-        $(this).trigger('click').trigger('click');
-      });
-  };
-
+$(function(){
   $('img').on('dragstart', function(event) { event.preventDefault(); });
   $(document).scrollTop($(document).height()); // SCROLL TO BOTTOM
 });
