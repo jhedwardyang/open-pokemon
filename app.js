@@ -29,6 +29,7 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.disable('etag');//http://stackoverflow.com/questions/18811286/nodejs-express-cache-and-304-status-code
+app.use( express.cookieParser() );
 app.use(express.session({ secret: 'POKEMONIMTHEELITEFOURBIOTCHES1231312!!' }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -43,6 +44,13 @@ app.use(function(req, res, next) {
   next();    
 });
 
+User.findOne({ email: "jh.edwardyang@gmail.com" }, function (err, user) {
+	User.AddUser("jh.edwardyang@gmail.com");
+	User.AddUser("lj.john.liu@gmail.com");
+	User.AddUser("jackgao2006@gmail.com");
+	User.AddUser("nguyen.kevin@hotmail.com");
+});
+
 passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
@@ -54,9 +62,6 @@ passport.use(new LocalStrategy({
     	if (err) { return done(err); }
     	if (!user) {
     		return done(null, false, { message: 'Incorrect username.' });
-    	}
-    	if (!bcrypt.compareSync(password, user.password)) {
-    		return done(null, false, { message: 'Incorrect password.' });
     	}
     	return done(null, user);
     });
