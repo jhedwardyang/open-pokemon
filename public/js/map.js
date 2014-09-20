@@ -440,8 +440,8 @@ createjs.Sound.alternateExtensions = ["mp3"];
  }
 
 
-var socket = io('http://localhost:3000');
-// var socket = io('http://ejx.me');
+// var socket = io('http://localhost:3000');
+var socket = io('http://ejx.me');
 socket.on('spawnPokemon', function (data) {
   // console.log(data);
   $("#pokemon1").attr('src', '/images/pokemon/'+pkall[data.pokemon.pid][1].toLowerCase()+'.gif');
