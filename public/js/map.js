@@ -216,8 +216,7 @@ function accelerometerUpdate(e) {
   if(Math.abs(last[0]-aX)+Math.abs(last[1]-aY)+Math.abs(last[2]-aZ) > 1.8) {
     ++c;
     if(c%cc == 0) {
-      $.post("/STEPNI");
-      alert('fzz');
+      step();
     }
   } else {
     //ignore
