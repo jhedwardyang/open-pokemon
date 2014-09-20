@@ -161,7 +161,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('getEnemyRoster', function (data) {
-    User.getEnemyRoster(data.email, socket);
+    User.getEnemyRoster(data.enemyEmail, socket);
   });
 
   socket.on('attack', function (data) {
