@@ -15,8 +15,8 @@ function touchStart(event) {
   alert('z');
   event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
   if ( event.touches.length == 1) { // Only track one finger
-    alert(start);
     start = event.touches[0];
+    alert(start.x + ' ' + start.y);
   }
   state = 1;
 }
@@ -24,8 +24,8 @@ function touchEnd(event) {
   event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
   if ( event.touches.length == 1) { // Only track one finger
     end = event.touches[0];
-    alert(end);
-    if(start.y > end.y + 100) alert('attack');
+    alert(end.x + ' ' + end.y);
+    if(start.y > end.y + 500) alert('attack');
   }
   state = 0;
 }
