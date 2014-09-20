@@ -123,13 +123,22 @@ var httpserver = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+var connections = [];
+
 var io = require('socket.io')(httpserver);
 io.on('connection', function (socket) {
   socket.emit('welcome', { welcome: 'welcome' });
+  socket.on('iam', function (data) {
+    connections[data.email] = socket;
+  });
+
   socket.on('move', function (data) {
     var r = Math.random();
     // console.log(r);
-    if(r < 0.15) Spawner.spawn(data.email, data.lng, data.lat, socket);
+    //if(r < 0.15) Spawner.spawn(data.email, data.lng, data.lat, socket);
+  
+    connections['jack@email.com'].emit('playerBattle', {enemyEmail: 'john@email.com'});
+    connections['john@email.com'].emit('playerBattle', {enemyEmail: 'jack@email.com'});
   });
 
   socket.on('getPokedexDump', function (data) {
@@ -149,6 +158,14 @@ io.on('connection', function (socket) {
 
   socket.on('getRoster', function (data) {
     User.getRoster(data.email, socket);
+  });
+
+  socket.on('getEnemyRoster', function (data) {
+    User.getEnemyRoster(data.email, socket);
+  });
+
+  socket.on('attack', function (data) {
+    connections[data.enemyEmail].emit('getAttacked', {});
   });
 });
 

@@ -2,6 +2,10 @@
 
 var email = $("#ee").val();
 
+var isPvP = false;
+var socket;
+var enemyEmail;
+
 var loc = [43.472979 , -80.540103];
 navigator.geolocation.getCurrentPosition(GetLocation);
 function GetLocation(location) {
@@ -292,6 +296,7 @@ var hp = [100,100];
 function attack(them) {
   if(hp[0] <= 0 || hp[1] <= 0) return;
   if(them) { // we attacking them
+    if(isPvP) socket.emit('attack', {email: enemyEmail});
     $("#pokemon2").css({
       '-webkit-transform':'translate(200px,-700px)',
       '-moz-transform':'translate(200px,-700px)',
@@ -394,7 +399,7 @@ function damage(them, amt) {
     if(hp[0] <= 0) faint(true);
 
     setTimeout(function(){
-      if(hp[0] > 0) attack(false);
+      if(hp[0] > 0 && !isPvP) attack(false);
     }, 1000)
 
   } else { //we took dmg
@@ -536,10 +541,47 @@ $(function(){
 });
 
 
-
 // var socket = io('http://localhost:3000');
-var socket = io('http://ejx.me');
+socket = io('http://ejx.me');
+
+socket.on('welcome', function(data) {
+  socket.emit('iam', { email: email });
+});
+
+socket.on('playerBattle' function (data) {
+  isPvP = true;
+  enemyEmail = data.enemyEmail;
+
+  $("#overlay").fadeTo("slow", 0);
+  $("#map").fadeTo("slow", 0);
+
+
+  $("audio#m1")[0].currentTime = 0; $("audio#m1").trigger('play'); $("audio#m1").prop('volume', 1);
+  $("audio#m2").trigger('pause'); $("audio#m2").prop('volume', 0);
+  // $("audio#m2").trigger('pause', function(){
+  //   if(song.paused) { song.play(); }
+  //   song.pause();
+  //   console.log(song.paused);
+  // });
+
+  // console.log(data);
+  socket.emit('getEnemyRoster', { 'email': data.enemyEmail });
+  socket.emit('getRoster', {'email': email});
+});
+
+socket.on('roster', function(data){
+  // console.log(data);
+  
+ setTimeout(function(){
+    $("#pokemon1").attr('src', '/images/pokemon/'+pkall[data[0].pid][1].toLowerCase()+'.gif');
+    $("#battle").fadeTo( "slow", 1 );
+ }, 1000);
+});
+
+
+
 socket.on('spawnPokemon', function (data) {
+  isPvP = false;
 
   $("#overlay").fadeTo("slow", 0);
   $("#map").fadeTo("slow", 0);
@@ -560,6 +602,11 @@ socket.on('spawnPokemon', function (data) {
   
   socket.emit('getRoster', {'email': email});
 });
+
+socket.on('getAttacked', function(data){
+  attack(false);
+});
+
 socket.on('roster', function(data){
   // console.log(data);
   
