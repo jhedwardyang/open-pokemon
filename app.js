@@ -89,8 +89,7 @@ io.on('connection', function (socket) {
   socket.emit('welcome', { welcome: 'welcome' });
 
   socket.on('getPokedexDump', function (data) {
-    console.log(data.email);
-    socket.emit('PokedexDump', { pokedexDump: Pokedex.dumpPokedex(data.email) });
+    Pokedex.dumpPokedex(data.email, socket);
   });
 
   socket.on('seePokemon', function (data) {
