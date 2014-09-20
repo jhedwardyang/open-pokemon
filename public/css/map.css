@@ -16,20 +16,21 @@
 .pokemon {
 	position: absolute;
 	z-index: 5;
-	-moz-transform: scale(5.2);
-    -ms-transform: scale(5.2);
-    -o-transform: scale(5.2);
-    -webkit-transform: scale(5.2);
-    transform: scale(5.2);
+	width: 500px;
+	height: 500px;
+	-webkit-transition: .4s ease-in-out;
+    -moz-transition: .4s ease-in-out;
+    -o-transition: .4s ease-in-out;
+    transition: .4s ease-in-out;
 }
 
 #pokemon1 {
-	top: 800px;
-	left: 510px;
+	top: 550px;
+	left: 260px;
 }
 #pokemon2 {
-	top: 1598px;
-	left: 340px;
+	top: 1400px;
+	left: 150px;
 }
 
 .shadow {

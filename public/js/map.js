@@ -44,16 +44,23 @@ function accelerometerUpdate(e) {
 
 
 function attack(them) {
-  $("#pokemon2").animate({
-    top: "-=700",
-    left: "+=200"
-  },300, function(){
-    $("#pokemon2").animate({
-      top: "+=700",
-      left: "-=200"
-    },300, function(){
-    })
+  console.log('att');
+  $("#pokemon2").css({
+    '-webkit-transform':'translate(200px,-700px)',
+    '-moz-transform':'translate(200px,-700px)',
+    '-o-transform':'translate(200px,-700px)',
+    '-ms-transform':'translate(200px,-700px)',
+    'transform':'translate(200px,-700px)'
   });
+  setTimeout(function(){
+    $("#pokemon2").css({
+      '-webkit-transform':'translate(0,0)',
+      '-moz-transform':'translate(0,0)',
+      '-o-transform':'translate(0,0)',
+      '-ms-transform':'translate(0,0)',
+      'transform':'translate(0,0)'
+    });
+  }, 450);
 }
 
 
