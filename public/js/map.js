@@ -1,7 +1,34 @@
+// SET EVENT LISTENERS
+
+
 if (window.DeviceMotionEvent != undefined) {
   window.addEventListener("devicemotion", accelerometerUpdate, true);
+  document.addEventListener("touchstart", touchStart, true);
+  // document.addEventListener("touchmove", touchMove, true);
+  document.addEventListener("touchend", touchEnd, true);
 }
 
+var state;
+var start;
+
+function touchStart(event) {
+  alert('z');
+  event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
+  if ( event.touches.length == 1) { // Only track one finger
+    alert(start);
+    start = event.touches[0];
+  }
+  state = 1;
+}
+function touchEnd(event) {
+  event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
+  if ( event.touches.length == 1) { // Only track one finger
+    end = event.touches[0];
+    alert(end);
+    if(start.y > end.y + 100) alert('attack');
+  }
+  state = 0;
+}
 function accelerometerUpdate(e) {
  var aX = event.accelerationIncludingGravity.x*1;
  var aY = event.accelerationIncludingGravity.y*1;
@@ -12,9 +39,8 @@ function accelerometerUpdate(e) {
  yPosition = Math.atan2(aX, aZ);
 }
 
-document.addEventListener("touchstart", touchStart, "true");
-document.addEventListener("touchmove", touchMove, "true");
-document.addEventListener("touchend", touchEnd, "true");
+
+
 
 (function($) {
   $.fn.nodoubletapzoom = function() {
@@ -31,26 +57,10 @@ document.addEventListener("touchend", touchEnd, "true");
         $(this).trigger('click').trigger('click');
       });
   };
-})(jQuery);
 
-$('img').on('dragstart', function(event) { event.preventDefault(); });
+  $('img').on('dragstart', function(event) { event.preventDefault(); });
+  $(document).scrollTop($(document).height()); // SCROLL TO BOTTOM
+});
 
-var state;
-var start;
 
-function touchStart(event) {
-  alert('z');
-  event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
-  if ( event.touches.length == 1) { // Only track one finger
-    start = event.touches[0];
-  }
-  state = 1;
-}
-function touchEnd(event) {
-  event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
-  if ( event.touches.length == 1) { // Only track one finger
-    end = event.touches[0];
-    if(start.y > end.y + 100) alert('attack');
-  }
-  state = 0;
-}
+
