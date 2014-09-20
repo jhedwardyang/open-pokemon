@@ -4,6 +4,23 @@
 }
 .html::-webkit-scrollbar { width: 0 !important }
 
+#overlay {
+	position: absolute;
+	top: 0;
+	left:0;
+	height: 1920px;
+	width: 1040px;
+	z-index: 101;
+	background: white;
+	opacity: 0.9;
+	overflow: hidden;
+}
+#marker {
+	z-index: 102;
+	position: absolute;
+	top: 873px;
+	left: 489px;
+}
 #map {
 	position: absolute;
 	top: 0;
