@@ -46,10 +46,12 @@ app.use(function(req, res, next) {
 });
 
 User.findOne({ email: "jh.edwardyang@gmail.com" }, function (err, user) {
-	User.AddUser("jh.edwardyang@gmail.com");
-	User.AddUser("lj.john.liu@gmail.com");
-	User.AddUser("jackgao2006@gmail.com");
-	User.AddUser("nguyen.kevin@hotmail.com");
+  if(!user) {
+  	User.AddUser("jh.edwardyang@gmail.com");
+  	User.AddUser("lj.john.liu@gmail.com");
+  	User.AddUser("jackgao2006@gmail.com");
+  	User.AddUser("nguyen.kevin@hotmail.com");
+  }
 });
 
 passport.use(new LocalStrategy({
@@ -85,6 +87,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login.html'}), routes.login);
 
 var httpserver = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
