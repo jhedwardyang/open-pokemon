@@ -552,6 +552,7 @@ socket.on('welcome', function(data) {
 socket.on('playerBattle', function (data) {
   isPvP = true;
   enemyEmail = data.enemyEmail;
+  console.log(enemyEmail);
 
   $("#overlay").fadeTo("slow", 0);
   $("#map").fadeTo("slow", 0);
@@ -570,7 +571,7 @@ socket.on('playerBattle', function (data) {
   socket.emit('getRoster', {'email': email});
 });
 
-socket.on('roster', function(data){
+socket.on('enemyRoster', function(data){
   // console.log(data);
   
  setTimeout(function(){
