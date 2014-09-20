@@ -127,8 +127,9 @@ var io = require('socket.io')(httpserver);
 io.on('connection', function (socket) {
   socket.emit('welcome', { welcome: 'welcome' });
   socket.on('move', function (data) {
-    // spawn pokemon?
-    if(Math.random() < 0.25) Spawner.spawn(data.email, data.lng, data.lat, socket);
+    var r = Math.random();
+    // console.log(r);
+    if(r < 0.15) Spawner.spawn(data.email, data.lng, data.lat, socket);
   });
 
   socket.on('getPokedexDump', function (data) {

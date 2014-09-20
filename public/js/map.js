@@ -20,9 +20,9 @@ function GetLocation(location) {
             mapOptions);
       }
       google.maps.event.addDomListener(window, 'load', initialize);
-audiojs.events.ready(function() {
-        audiojs.createAll();
-      });
+// audiojs.events.ready(function() {
+//         audiojs.createAll();
+//       });
 var pkall = [
   ["001", "Bulbasaur", "Grass", "Poison"],
   ["002", "Ivysaur", "Grass", "Poison"],
@@ -335,11 +335,8 @@ function attack(them) {
         '-ms-transform':'translate(0,0)',
         'transform':'translate(0,0)'
       });
-      damage(true, 20);      
+      damage(true, 40);      
     }, 450);
-    setTimeout(function(){
-      if(hp[0] > 0) attack(false);
-    }, 1000)
   } else { // close we attacking them 
     $("#pokemon1").css({
       '-webkit-transform':'translate(-200px,700px)',
@@ -395,6 +392,11 @@ function damage(them, amt) {
     hp[0]-= amt; // DAMAGE
     $("#hp1 > span").css('width',hp[0]+'%');
     if(hp[0] <= 0) faint(true);
+
+    setTimeout(function(){
+      if(hp[0] > 0) attack(false);
+    }, 1000)
+
   } else { //we took dmg
     hp[1]-= amt; // DAMAGE
     $("#hp2 > span").css('width',hp[1]+'%');
@@ -505,22 +507,26 @@ function faint(them) {
       }, 500);
     }
   }, 500);//wait 300
-setTimeout(function(){
-  $("#overlay").fadeTo("slow", 1);
-  $("#map").fadeTo("slow", 1);
-  $("#m1").trigger('stop');
-  $("#m2").trigger('play');
-}, 1000);
 
-// CLEANUP
-hp[0] = maxhp[0];
-hp[1] = maxhp[1];
-$("#shadow1").css('opacity','1');
-$("#hp1").css('opacity','1');
-$("#pokemon1").css('opacity','1');
-$("#shadow2").css('opacity','1');
-$("#hp2").css('opacity','1');
-$("#pokemon2").css('opacity','1');
+setTimeout(function(){
+  $("#overlay").fadeTo("slow", 0.9);
+  $("#map").fadeTo("slow", 1);
+  $("audio#m1").trigger('stop'); $("audio#m1").currentTime = 0; $("audio#m1").prop('volume', 0);
+  $("audio#m2").trigger('play'); $("audio#m2").prop('volume', 1);
+  setTimeout(function() {
+    // CLEANUP
+    hp[0] = maxhp[0];
+    // hp[1] = maxhp[1];
+    $("#hp1 > span").css('width',hp[0]+'%');
+    $("#hp2 > span").css('width',hp[1]+'%');
+    $("#shadow1").css('opacity','1');
+    $("#hp1").css('opacity','1');
+    $("#pokemon1").css('opacity','1');
+    $("#shadow2").css('opacity','1');
+    $("#hp2").css('opacity','1');
+    $("#pokemon2").css('opacity','1');
+  }, 1000);
+}, 1000);
 }
 
 $(function(){
@@ -531,15 +537,23 @@ $(function(){
 
 
 
-var socket = io('http://localhost:3000');
-// var socket = io('http://ejx.me');
+// var socket = io('http://localhost:3000');
+var socket = io('http://ejx.me');
 socket.on('spawnPokemon', function (data) {
 
   $("#overlay").fadeTo("slow", 0);
   $("#map").fadeTo("slow", 0);
 
-  $("#m1").trigger('play');
-  $("#m2").trigger('pause');
+
+  $("audio#m1")[0].currentTime = 0; $("audio#m1").trigger('play'); $("audio#m1").prop('volume', 1);
+  $("audio#m2").trigger('pause'); $("audio#m2").prop('volume', 0);
+  // $("audio#m2").trigger('pause', function(){
+  //   if(song.paused) { song.play(); }
+  //   song.pause();
+  //   console.log(song.paused);
+  // });
+  
+
 
   // console.log(data);
   $("#pokemon1").attr('src', '/images/pokemon/'+pkall[data.pokemon.pid][1].toLowerCase()+'.gif');
