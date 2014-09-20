@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
  */
 
 exports.index = function(req, res){
-  if(req.user) res.redirect('/map.html');
+  if(req.user) res.redirect('/map');
   else res.redirect('/login.html');
 };
 exports.login = function(req, res) {
@@ -14,4 +14,8 @@ exports.login = function(req, res) {
 		mongoose.connect('mongodb://localhost/tempest');
 	}
 	res.redirect('/map.html');
+}
+exports.map = function(req, res) {
+	if(!req.user) res.redirect('/login.html');
+	else res.render('map');
 }
