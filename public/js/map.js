@@ -215,6 +215,7 @@ function accelerometerUpdate(e) {
   var aX = event.accelerationIncludingGravity.x;
   var aY = event.accelerationIncludingGravity.y;
   var aZ = event.accelerationIncludingGravity.z;
+  $("#test").html(aX+","+aY+","+aZ);
 
   //http://stackoverflow.com/questions/16392142/android-accelerometer-profiling/16539643#16539643
   var g = Math.pow(aX,2)+Math.pow(aY,2)+Math.pow(aZ,2);
