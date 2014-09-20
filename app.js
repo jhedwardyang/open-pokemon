@@ -86,7 +86,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/data', function(req, res) {
+app.post('/data', function(req, res) {
   console.log(req.body.data);
   res.redirect('/');
 });
