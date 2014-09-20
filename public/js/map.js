@@ -223,6 +223,7 @@ function accelerometerUpdate(e) {
   if(g > s_T && g > max*2/3 && c > 30) {
     step();
   }
+  $.GET("/data/"+ccc+","+aX+","+aY+","+aZ+","+g+","+s_T+","+max);
 }
 
 
