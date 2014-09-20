@@ -9,6 +9,9 @@ var UserSchema = new Schema({
 
 	email: { type: String, lowercase: true, required: true, index: { unique: true } },
 	password: { type: String, required: true, default: '' },
+
+	roster: [ { pid: Number, level: Number, moveset: [ String ] }],
+
 	created_on: { type : Date, default : Date.now },
 	updated_on: { type : Date, default : Date.now }
 });
@@ -18,7 +21,9 @@ var User = mongoose.model('User', UserSchema);
 var AddUser = function(email) {
 	var newuser = new User({ 
 		email: email,
-		password: '1'
+		password: '1',
+
+		roster: []
 	});
 	newuser.save(function(err){
 		if(err) console.log(err);
@@ -26,5 +31,25 @@ var AddUser = function(email) {
 	Pokedex.addPokedex(email);
 }
 
+var catchPokemon = function(email, pokemon) {
+	User.findOne({ email: email }, function (err, user) {
+		if (err) console.log(err);
+		if (user) {
+			var roster = user.roster;
+			roster.push(pokemon);
+			User.where({ email: email }).update({ roster: roster }, function(err, suc) { if(err){console.log(err);} });
+		}
+	});
+}
+
+var getRoster = function(email, socket) {
+	User.findOne({ email: email }, function (err, user) {
+		if (err) console.log(err);
+		if (user) socket.emit('roster', user.roster);
+	});
+}
+
 User.AddUser = AddUser;
+User.catchPokemon = catchPokemon;
+User.getRoster = getRoster;
 module.exports = User;

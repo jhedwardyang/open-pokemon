@@ -111,6 +111,11 @@ io.on('connection', function (socket) {
   socket.on('catchPokemon', function (data) {
     console.log(data.email + " catches " + data.pid);
     Pokedex.catchPokemon(data.email, data.pid);
+    User.catchPokemon(data.email, data.pokemon);
+  });
+
+  socket.on('getRoster', function (data) {
+    User.catchPokemon(data.email, socket);
   });
 });
 
