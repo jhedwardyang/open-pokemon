@@ -16,18 +16,13 @@ function touchStart(event) {
   event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
   if ( event.touches.length == 1) { // Only track one finger
     start = event.touches[0];
-    alert(start.x + ' ' + start.y);
   }
   state = 1;
 }
 function touchEnd(event) {
   event.preventDefault(); // Prevent the webview itself from scrolling / bouncing around
-  if ( event.touches.length == 1) { // Only track one finger
-    end = event.touches[0];
-    alert(end.x + ' ' + end.y);
-    if(start.y > end.y + 500) alert('attack');
-  }
-  state = 0;
+  end = event.touches[0];
+  if(start.y > (end.y + 600)) alert('attack');
 }
 function accelerometerUpdate(e) {
  var aX = event.accelerationIncludingGravity.x*1;
