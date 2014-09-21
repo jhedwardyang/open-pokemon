@@ -153,6 +153,14 @@ io.on('connection', function (socket) {
     User.catchPokemon(data.email, data.pokemon);
   });
 
+
+
+var end = function(){
+  socket.emit('end',{});
+}
+
+
+
   socket.on('getRoster', function (data) {
     User.getRoster(data.email, socket);
   });
@@ -168,6 +176,10 @@ io.on('connection', function (socket) {
 
   socket.on('attack', function (data) {
     connections[data.email].emit('getAttacked', {});
+  });
+
+  socket.on('start', function (data) {
+    setTimeout(end, 5);
   });
 });
 
