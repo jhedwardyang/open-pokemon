@@ -203,7 +203,8 @@ function clickStart(event) {
       Math.abs(start.pageY - event.y) < 5 &&
       ((new Date).getTime()-t) < 300)
     {
-      attack(true);
+      // attack(true);
+      ember();
       flag = true;
     }
   }
@@ -219,7 +220,10 @@ function clickEnd(event) {
   var end = {};
   end.pageX = event.x;
   end.pageY = event.y;
-  if(start.pageY > (end.pageY + 550)) attack(true);
+  if(start.pageY > (end.pageY + 550)) {
+    attack(true);
+    // ember();
+  }
 }
 function touchStart(event) {
   if(start.pageX != undefined) {
@@ -303,15 +307,15 @@ function step() {
 
 
 
-
+//WILD / TRAINER
 var pokemon = ['charizard', 'vulpix'];
-var maxhp = [100,100];
-var hp = [100,100];
+var maxhp = [100,140];
+var hp = [100,140];
 
 
 var throwPokeball = function() {
     $("#pokeball").css({
-      'opacity':100,
+      'opacity':1,
       '-webkit-transform':'translate(560px,-1200px)',
       '-moz-transform':'translate(560px,-1200px)',
       '-o-transform':'translate(560px,-1200px)',
@@ -324,28 +328,58 @@ var throwPokeball = function() {
         'opacity':'0'
       });
       setTimeout(function(){
-          $("#pokeball").css({
-            'opacity':0
-          });
-        $("#overlay").fadeTo("slow", 0.9);
-        $("#map").fadeTo("slow", 1);
-        $("audio#m1").trigger('stop'); $("audio#m1").currentTime = 0; $("audio#m1").prop('volume', 0);
-        $("audio#m2").trigger('play'); $("audio#m2").prop('volume', 1);
-        setTimeout(function() {
-          // CLEANUP
-          hp[0] = maxhp[0];
-          // hp[1] = maxhp[1];
-          $("#hp1 > span").css('width',hp[0]+'%');
-          $("#hp2 > span").css('width',hp[1]+'%');
-          $("#shadow1").css('opacity','1');
-          $("#hp1").css('opacity','1');
-          $("#pokemon1").css('opacity','1');
-          $("#shadow2").css('opacity','1');
-          $("#hp2").css('opacity','1');
-          $("#pokemon2").css('opacity','1');
-        }, 3000);
-      }, 1000);
-    }, 450);
+        $("#pokeball").css({
+          'opacity':0
+        });
+        setTimeout(function(){//
+          $("#overlay").fadeTo("slow", 0.9);
+          $("#map").fadeTo("slow", 1);
+          $("audio#m1").trigger('stop'); $("audio#m1").currentTime = 0; $("audio#m1").prop('volume', 0);
+          $("audio#m2").trigger('play'); $("audio#m2").prop('volume', 1);
+
+          setTimeout(function() {
+            // CLEANUP
+            hp[0] = maxhp[0];
+            // hp[1] = maxhp[1];
+            $("#hp1 > span").css('width',hp[0]+'%');
+            $("#hp2 > span").css('width',hp[1]+'%');
+            $("#shadow1").css('opacity','1');
+            $("#hp1").css('opacity','1');
+            $("#pokemon1").css('opacity','1');
+            $("#shadow2").css('opacity','1');
+            $("#hp2").css('opacity','1');
+            $("#pokemon2").css('opacity','1');
+          }, 2500);
+        }, 1000); //
+      }, 1500);
+    }, 1000);
+}
+
+
+var ember = function() {
+  if(hp[0] <= 0 || hp[1] <= 0) return;
+  if(isPvP) socket.emit('attack', {email: enemyEmail});
+  $("#ember").css({
+    'opacity': '1',
+    '-webkit-transform':'translate(120px,-647px)',
+    '-moz-transform':'translate(120px,-647px)',
+    '-o-transform':'translate(120px,-647px)',
+    '-ms-transform':'translate(120px,-647px)',
+    'transform':'translate(120px,-647px)',
+  });
+  setTimeout(function(){
+    $("#ember").fadeTo("slow",0);
+    damage(true, 50);      
+    setTimeout(function(){//cleanup ember
+      $("#ember").css({
+        '-webkit-transform':'translate(0px,0)',
+        '-moz-transform':'translate(0px,0)',
+        '-o-transform':'translate(0px,0)',
+        '-ms-transform':'translate(0px,0)',
+        'transform':'translate(0px,0)',
+      });
+    }, 1500)
+  }, 450);
 }
 
 
@@ -354,25 +388,25 @@ function attack(them) {
   if(them) { // we attacking them
     if(isPvP) socket.emit('attack', {email: enemyEmail});
     $("#pokemon2").css({
-      '-webkit-transform':'translate(200px,-700px)',
-      '-moz-transform':'translate(200px,-700px)',
-      '-o-transform':'translate(200px,-700px)',
-      '-ms-transform':'translate(200px,-700px)',
-      'transform':'translate(200px,-700px)'
+      '-webkit-transform':'translate(120px,-820px)',
+      '-moz-transform':'translate(120px,-820px)',
+      '-o-transform':'translate(120px,-820px)',
+      '-ms-transform':'translate(120px,-820px)',
+      'transform':'translate(120px,-820px)'
     });
     $("#hp2").css({
-      '-webkit-transform':'translate(200px,-700px)',
-      '-moz-transform':'translate(200px,-700px)',
-      '-o-transform':'translate(200px,-700px)',
-      '-ms-transform':'translate(200px,-700px)',
-      'transform':'translate(200px,-700px)'
+      '-webkit-transform':'translate(120px,-820px)',
+      '-moz-transform':'translate(120px,-820px)',
+      '-o-transform':'translate(120px,-820px)',
+      '-ms-transform':'translate(120px,-820px)',
+      'transform':'translate(120px,-820px)'
     });
     $("#shadow2").css({
-      '-webkit-transform':'translate(230px,-550px)',
-      '-moz-transform':'translate(230px,-550px)',
-      '-o-transform':'translate(230px,-550px)',
-      '-ms-transform':'translate(230px,-550px)',
-      'transform':'translate(230px,-550px)'
+      '-webkit-transform':'translate(120px,-820px)',
+      '-moz-transform':'translate(120px,-820px)',
+      '-o-transform':'translate(120px,-820px)',
+      '-ms-transform':'translate(120px,-820px)',
+      'transform':'translate(120px,-820px)'
     });
     setTimeout(function(){
       $("#pokemon2").css({
@@ -404,21 +438,21 @@ function attack(them) {
       '-moz-transform':'translate(-200px,700px)',
       '-o-transform':'translate(-200px,700px)',
       '-ms-transform':'translate(-200px,700px)',
-      'transform':'translate(-200px,700px)'
+      'transform':'translate(-120px,820px)'
     });
     $("#hp1").css({
       '-webkit-transform':'translate(-200px,700px)',
       '-moz-transform':'translate(-200px,700px)',
       '-o-transform':'translate(-200px,700px)',
       '-ms-transform':'translate(-200px,700px)',
-      'transform':'translate(-200px,700px)'
+      'transform':'translate(-120px,820px)'
     });
     $("#shadow1").css({
       '-webkit-transform':'translate(-170px,550px)',
       '-moz-transform':'translate(-230px,550px)',
       '-o-transform':'translate(-230px,550px)',
       '-ms-transform':'translate(-230px,550px)',
-      'transform':'translate(-170px,800px)'
+      'transform':'translate(-120px,820px)'
     });
     setTimeout(function(){
       $("#pokemon1").css({
@@ -451,7 +485,7 @@ function attack(them) {
 function damage(them, amt) {
   if(them) {
     hp[0]-= amt; // DAMAGE
-    $("#hp1 > span").css('width',hp[0]+'%');
+    $("#hp1 > span").css('width',parseInt(hp[0]/maxhp[0]*100)+'%');
     if(hp[0] <= 0) faint(true);
 
     setTimeout(function(){
@@ -460,7 +494,7 @@ function damage(them, amt) {
 
   } else { //we took dmg
     hp[1]-= amt; // DAMAGE
-    $("#hp2 > span").css('width',hp[1]+'%');
+    $("#hp2 > span").css('width',parseInt(hp[1]/maxhp[1]*100)+'%');
     if(hp[1] <= 0) faint(false);
   }
 }
