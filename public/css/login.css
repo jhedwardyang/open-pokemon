@@ -32,10 +32,10 @@ html, body {
 }
 
 #container {
-	position: relative;
-	width: 680px;
-	height: 560px;
-	top: 35%;
+	position: absolute;
+	width: 340px;
+	height: 280px;
+	top: 600px;
 	left: 50%;
 	margin-top: -140px;
 	margin-left: -170px;
