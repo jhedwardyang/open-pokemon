@@ -30,12 +30,16 @@ html, body {
 	background: #f0f0f0;
 	
 }
-
+img {
+	left: 50%;
+	width: 600px;
+	height: 400px;
+}
 #container {
 	position: absolute;
 	width: 340px;
 	height: 280px;
-	top: 600px;
+	top: 480px;
 	left: 50%;
 	margin-top: -140px;
 	margin-left: -170px;
