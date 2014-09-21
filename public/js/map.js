@@ -434,24 +434,24 @@ function attack(them) {
     }, 450);
   } else { // close we attacking them 
     $("#pokemon1").css({
-      '-webkit-transform':'translate(-200px,700px)',
-      '-moz-transform':'translate(-200px,700px)',
-      '-o-transform':'translate(-200px,700px)',
-      '-ms-transform':'translate(-200px,700px)',
+      '-webkit-transform':'translate(-120px,820px)',
+      '-moz-transform':'translate(-120px,820px)',
+      '-o-transform':'translate(-120px,820px)',
+      '-ms-transform':'translate(-120px,820px)',
       'transform':'translate(-120px,820px)'
     });
     $("#hp1").css({
-      '-webkit-transform':'translate(-200px,700px)',
-      '-moz-transform':'translate(-200px,700px)',
-      '-o-transform':'translate(-200px,700px)',
-      '-ms-transform':'translate(-200px,700px)',
+      '-webkit-transform':'translate(-120px,820px)',
+      '-moz-transform':'translate(-120px,820px)',
+      '-o-transform':'translate(-120px,820px)',
+      '-ms-transform':'translate(-120px,820px)',
       'transform':'translate(-120px,820px)'
     });
     $("#shadow1").css({
-      '-webkit-transform':'translate(-170px,550px)',
-      '-moz-transform':'translate(-230px,550px)',
-      '-o-transform':'translate(-230px,550px)',
-      '-ms-transform':'translate(-230px,550px)',
+      '-webkit-transform':'translate(-120px,820px)',
+      '-moz-transform':'translate(-120px,820px)',
+      '-o-transform':'translate(-120px,820px)',
+      '-ms-transform':'translate(-120px,820px)',
       'transform':'translate(-120px,820px)'
     });
     setTimeout(function(){
