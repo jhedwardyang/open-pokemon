@@ -87,10 +87,10 @@
 	z-index: 5;
 	width: 500px;
 	height: 500px;
-	-webkit-transition: 2s ease-in-out;
-    -moz-transition: 2s ease-in-out;
-    -o-transition: 2s ease-in-out;
-    transition: 2s ease-in-out;
+	-webkit-transition: .4s ease-in-out;
+    -moz-transition: .4s ease-in-out;
+    -o-transition: .4s ease-in-out;
+    transition: .4s ease-in-out;
 }
 
 #pokemon1 {
@@ -108,10 +108,10 @@
 	height: auto;
 	opacity: 0;
 
-	-webkit-transition: .4s ease-in-out;
-    -moz-transition: .4s ease-in-out;
-    -o-transition: .4s ease-in-out;
-    transition: .4s ease-in-out;
+	-webkit-transition: 1s ease-in-out;
+    -moz-transition: 1s ease-in-out;
+    -o-transition: 1s ease-in-out;
+    transition: 1s ease-in-out;
 }
 
 .shadow {
