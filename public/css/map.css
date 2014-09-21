@@ -18,10 +18,10 @@
 #marker {
 	z-index: 102;
 	position: absolute;
-	top: 865px;
+	top: 1022px;
 	width: 45px;
 	height: 45px;
-	left: 470px;
+	left: 467px;
 	-webkit-transition: .4s ease-in-out;
     -moz-transition: .4s ease-in-out;
     -o-transition: .4s ease-in-out;
@@ -69,6 +69,19 @@
 	left: 250px;
 }
 
+
+#ember {
+	position: absolute;
+	top: 1350px;
+	left: 300px;
+	z-index: 300;
+	-webkit-transition: .4s ease-in-out;
+    -moz-transition: .4s ease-in-out;
+    -o-transition: .4s ease-in-out;
+    transition: .4s ease-in-out;
+    opacity: 0;
+}
+
 .pokemon {
 	position: absolute;
 	z-index: 5;
@@ -87,6 +100,18 @@
 #pokemon2 {
 	top: 1400px;
 	left: 150px;
+}
+#pokeball {
+	top: 2000px;
+	left: -100px;
+	width: 75;
+	height: auto;
+	opacity: 0;
+
+	-webkit-transition: 1s ease-in-out;
+    -moz-transition: 1s ease-in-out;
+    -o-transition: 1s ease-in-out;
+    transition: 1s ease-in-out;
 }
 
 .shadow {

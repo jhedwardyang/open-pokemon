@@ -1,37 +1,17 @@
 <html>
 	<head>
 		<title>Open Pokemon</title>
-		<link rel="icon" type="image/png" href="/images/favicon.png?">
+		<link rel="icon" type="image/png" href="/images/favicon.png">
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 	  <link rel="stylesheet" type="text/css" href="css/login.css">
 	</head>
 	<body>
-		<div>
-			<img src="/images/logo.jpg" style="position: absolute; margin-left: -300px; width:600; height:300; left:50%"/>
-		</div>
 		<div id="container">
 			<form action="/login" method="post">
-				<label for="name">Email:</label>
-				<input type="text" value="ed@gmail.com" name="email" autofocus><br>
-				<label for="username">Password:</label>
-				<p><a href="#">Forgot your password?</a>
-				
-				<input type="password">
-				
-				<div id="lower">
-					<input type="checkbox"><label class="check" for="checkbox">Keep me logged in</label>
-					<input type="hidden" name="password" value="1">
-					<input type="submit" value="Login">
-				</div>
+				<div class="z"><input type="text" value="ed@gmail.com" name="email" autofocus></div>
+				<div class="z"><input type="hidden" name="password" value="1"></div>
+				<div class="z"><button type="submit">Login</button></div>
 			</form>
 		</div>
-
-	<!--
-		<form>
-			<input type="text" name="email" autofocus><br />
-			
-			<input type="submit" value="Login">
-			<input type="submit" value="Register">			
-		</form>
-	-->
 	</body>
 </html>

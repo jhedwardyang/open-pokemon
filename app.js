@@ -131,11 +131,14 @@ io.on('connection', function (socket) {
   socket.on('iam', function (data) {
     connections[data.email] = socket;
   });
-
+  var notYet = true;
   socket.on('move', function (data) {
     var r = Math.random();
     // console.log(r);
-    if(r < 0.15) Spawner.spawn(data.email, data.lng, data.lat, socket);
+    if(r < 0.15 && notYet){
+      Spawner.spawn(data.email, data.lng, data.lat, socket);
+      notYet = false;
+    } 
   });
 
   socket.on('getPokedexDump', function (data) {
