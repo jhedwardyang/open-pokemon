@@ -285,32 +285,19 @@ $(document).keydown(function(e) {
     if(e.keyCode == 37) step();
 });
 
-var state_step = 0;
+var move = [0,0];
 function step() {
   socket.emit('move', { email: email, lat: loc[0], lng: loc[1]});
-  if(state_step == 0) {
-    state_step = 1;
-    $("#marker").css({
-      '-webkit-transform':'translate(0,-50px)',
-      '-moz-transform':'translate(0,-50px)',
-      '-o-transform':'translate(0,-50px)',
-      '-ms-transform':'translate(0,-50px)',
-      'transform':'translate(0,-50px)'
-    });
-    setTimeout(function(){
-      $("#marker").css({
-        '-webkit-transform':'translate(0,0)',
-        '-moz-transform':'translate(0,0)',
-        '-o-transform':'translate(0,0)',
-        '-ms-transform':'translate(0,0)',
-        'transform':'translate(0,0)'
-      });
-    }, 500);
-    setTimeout(function(){
-      
-      state_step = 0;
-    }, 1000);
-  }
+  var r = Math.random()*3;
+  if(parseInt(r) == 0) move[1]+=40;
+  else move[0]+=40;
+  $("#marker").css({
+    '-webkit-transform':'translate('+move[0]+'px,-'+move[1]+'px)',
+    '-webkit-transform':'translate('+move[0]+'px,-'+move[1]+'px)',
+    '-webkit-transform':'translate('+move[0]+'px,-'+move[1]+'px)',
+    '-webkit-transform':'translate('+move[0]+'px,-'+move[1]+'px)',
+    '-webkit-transform':'translate('+move[0]+'px,-'+move[1]+'px)',
+  });
 }
 
 

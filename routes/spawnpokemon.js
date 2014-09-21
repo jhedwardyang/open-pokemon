@@ -2,7 +2,7 @@ var spawn = function(email, lng, lat, socket) {
 	// don't care what it is, spawn Pikachu
 
 	var newPokemon = {
-		pid: 24,
+		pid: 0,
 		level: 10,
 		moveset: ['Tackle', 'Growl', 'Thunderbolt', 'Hyper Beam']
 	}
