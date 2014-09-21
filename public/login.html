@@ -2,13 +2,34 @@
 	<head>
 		<title>Open Pokemon</title>
 		<link rel="icon" type="image/png" href="/images/favicon.png?">
+	  <link rel="stylesheet" type="text/css" href="css/login.css">
 	</head>
 	<body>
 		<img src="/images/logo.jpg" style="width: 100%; height:auto;"/>
-		<form action="/login" method="post">
+		<div id="container">
+			<form action="/login" method="post">
+				<label for="name">Email:</label>
+				<input type="text" name="email" autofocus><br>
+				<label for="username">Password:</label>
+				<p><a href="#">Forgot your password?</a>
+				
+				<input type="password">
+				
+				<div id="lower">
+					<input type="checkbox"><label class="check" for="checkbox">Keep me logged in</label>
+					<input type="hidden" name="password" value="1">
+					<input type="submit" value="Login">
+				</div>
+			</form>
+		</div>
+
+	<!--
+		<form>
 			<input type="text" name="email" autofocus><br />
-			<input type="hidden" name="password" value="1">
+			
 			<input type="submit" value="Login">
+			<input type="submit" value="Register">			
 		</form>
+	-->
 	</body>
 </html>
