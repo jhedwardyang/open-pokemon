@@ -195,9 +195,25 @@ if (window.DeviceMotionEvent != undefined) {
 }
 
 var start = {};
+var t = 0;
+var flag = false;
 function clickStart(event) {
+  if(start.pageX != undefined) {
+    if(Math.abs(start.pageX - event.x) < 5 && 
+      Math.abs(start.pageY - event.y) < 5 &&
+      ((new Date).getTime()-t) < 300)
+    {
+      attack(true);
+      flag = true;
+    }
+  }
   start.pageX = event.x;
   start.pageY = event.y;
+  t = (new Date).getTime();
+  if(flag) {
+    start = {};
+    flag = false;
+  }
 }
 function clickEnd(event) {
   var end = {};
@@ -206,8 +222,21 @@ function clickEnd(event) {
   if(start.pageY > (end.pageY + 550)) attack(true);
 }
 function touchStart(event) {
-  console.log(event);
+  if(start.pageX != undefined) {
+    if(Math.abs(start.pageX - event.changedTouches[0].pageX) < 5 && 
+      Math.abs(start.pageY - event.changedTouches[0].pageY) < 5 &&
+      ((new Date).getTime()-t) < 300)
+    {
+      attack(true);
+      flag = true;
+    }
+  }
   start = event.changedTouches[0];
+  t = (new Date).getTime();
+  if(flag) {
+    start = {};
+    flag = false;
+  }
 }
 function touchEnd(event) {
   var end = event.changedTouches[0];
@@ -541,12 +570,13 @@ socket = io('http://ejx.me');
 $(function(){
 
   $('#challenge').click(function(){
-    console.log("challengedddd");
     socket.emit('challenge', {});
   });
   $('img').on('dragstart', function(event) { event.preventDefault(); });
   if(document.body.requestFullscreen) document.body.requestFullscreen();
   $(window).scrollTop($(document).height());
+  $("body").css('margin-top', $("#battle").height()+$("#battle").scrollTop()-$(window).height());
+  // console.log($("#battle").height() + ' ' + $("#battle").scrollTop() + ' ' )
 });
 
 socket.on('welcome', function(data) {
@@ -556,6 +586,7 @@ socket.on('welcome', function(data) {
 socket.on('playerBattle', function (data) {
   isPvP = true;
   enemyEmail = data.enemyEmail;
+  console.log(enemyEmail);
 
   $("#overlay").fadeTo("slow", 0);
   $("#map").fadeTo("slow", 0);

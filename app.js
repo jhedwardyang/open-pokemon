@@ -153,13 +153,20 @@ io.on('connection', function (socket) {
     User.catchPokemon(data.email, data.pokemon);
   });
 
+
+
+var end = function(){
+  socket.emit('end',{});
+}
+
+
+
   socket.on('getRoster', function (data) {
     User.getRoster(data.email, socket);
   });
 
   socket.on('getEnemyRoster', function (data) {
-    console.log("sabrina is a poopoo head");
-    User.getEnemyRoster(data.enemyEmail, socket);
+    User.getEnemyRoster(data.email, socket);
   });
 
   socket.on('challenge', function (data) {
@@ -168,7 +175,11 @@ io.on('connection', function (socket) {
   });
 
   socket.on('attack', function (data) {
-    connections[data.enemyEmail].emit('getAttacked', {});
+    connections[data.email].emit('getAttacked', {});
+  });
+
+  socket.on('start', function (data) {
+    setTimeout(end, 5);
   });
 });
 
