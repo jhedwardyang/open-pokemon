@@ -546,6 +546,7 @@ $(function(){
   $('img').on('dragstart', function(event) { event.preventDefault(); });
   if(document.body.requestFullscreen) document.body.requestFullscreen();
   $(window).scrollTop($(document).height());
+  $("body").css('margin-top', $("#battle").height()+$("#battle").scrollTop()-$(window).height());
 });
 
 socket.on('welcome', function(data) {
