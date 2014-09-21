@@ -181,6 +181,10 @@ var pkall = [
   ["151", "Mew", "Psychic", ""]
 ];
 
+var throwPokeball = function() {
+  
+}
+
 // SET EVENT LISTENERS
 
 document.addEventListener("mousedown", clickStart, true);
@@ -570,7 +574,8 @@ socket = io('http://ejx.me');
 $(function(){
 
   $('#challenge').click(function(){
-    socket.emit('challenge', {});
+    throwPokeball();
+    //socket.emit('challenge', {});
   });
   $('img').on('dragstart', function(event) { event.preventDefault(); });
   if(document.body.requestFullscreen) document.body.requestFullscreen();
