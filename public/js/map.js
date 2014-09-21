@@ -323,22 +323,18 @@ var hp = [100,100];
 
 
 var throwPokeball = function() {
-      $("#pokeball").css({
-      '-webkit-transform':'translate(200px,-700px)',
-      '-moz-transform':'translate(200px,-700px)',
-      '-o-transform':'translate(200px,-700px)',
-      '-ms-transform':'translate(200px,-700px)',
-      'transform':'translate(200px,-700px)'
+    $("#pokeball").css({
+      '-webkit-transform':'translate(360px,-1500px)',
+      '-moz-transform':'translate(360px,-1500px)',
+      '-o-transform':'translate(360px,-1500px)',
+      '-ms-transform':'translate(360px,-1500px)',
+      'transform':'translate(360px,-1500px)'
     });
 
     setTimeout(function(){
-      $("#pokeball").css({
-        '-webkit-transform':'translate(0,0)',
-        '-moz-transform':'translate(0,0)',
-        '-o-transform':'translate(0,0)',
-        '-ms-transform':'translate(0,0)',
-        'transform':'translate(0,0)'
-      });    
+      $("#pokemon1").css({
+        'opacity':'0'
+      });
     }, 450);
 }
 
