@@ -69,6 +69,14 @@
 	left: 250px;
 }
 
+
+#ember {
+	position: absolute;
+	top: 550px;
+	left: 260px;
+	z-index: 300;
+}
+
 .pokemon {
 	position: absolute;
 	z-index: 5;
