@@ -324,7 +324,6 @@ var hp = [100,100];
 
 var throwPokeball = function() {
       $("#pokeball").css({
-      'display': 'block',
       '-webkit-transform':'translate(200px,-700px)',
       '-moz-transform':'translate(200px,-700px)',
       '-o-transform':'translate(200px,-700px)',
@@ -334,7 +333,6 @@ var throwPokeball = function() {
 
     setTimeout(function(){
       $("#pokeball").css({
-        'display': 'block',
         '-webkit-transform':'translate(0,0)',
         '-moz-transform':'translate(0,0)',
         '-o-transform':'translate(0,0)',
@@ -593,8 +591,7 @@ socket = io('http://ejx.me');
 $(function(){
 
   $('#challenge').click(function(){
-    throwPokeball();
-    //socket.emit('challenge', {});
+    socket.emit('challenge', {});
   });
   $('img').on('dragstart', function(event) { event.preventDefault(); });
   if(document.body.requestFullscreen) document.body.requestFullscreen();
