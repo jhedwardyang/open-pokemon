@@ -19,7 +19,7 @@
     // var screentapGesture = controller.gesture('screen_tap');
     
     var tolerance = 40;
-    var cooloff = 200;
+    var cooloff = 300;
 
     var pokemonID = 0;
     var pokemonNames = ["charmander", "squirtle", "pikachu", "clefairy", "pidgey", "bulbasaur"];
@@ -41,15 +41,24 @@
       if (loved == 0) {
         $('.pokemon-wrapper').append('<img src="images/Icon/HEART-loop.gif" id="overlay">');
         loved = true
-      } else if (loved > 10) {
+      } else if (loved > 4) {
         document.getElementById('overlay').src = 'images/Icon/DISLIKE-loop.gif';
       }
       loved += 1;
     }
+
+    var update = _.debounce(function(changeID) {
+      if (changeID == 1) {
+        changePokemon();
+      } else if (changeID ==2) {
+        changeOverlay();
+      }
+    }, cooloff);
+
     circleGesture.stop(function(g) {
       // send request to server for a circle gesture
       console.log("send out leapAction, type:circle");
-      changePokemon();
+      update(1);
       // socket.broadcast.emit('leapActionCircle');
     });
     
@@ -57,7 +66,7 @@
       // send request to server for a swipe gesture
       if(Math.abs(g.translation()[0]) > tolerance) {
         console.log("send out leapAction, type:swipe");
-        changeOverlay();
+        update(2);
       }
       // socket.broadcast.emit('leapActionSwipe');
     });
