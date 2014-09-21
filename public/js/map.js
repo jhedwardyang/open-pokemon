@@ -181,10 +181,6 @@ var pkall = [
   ["151", "Mew", "Psychic", ""]
 ];
 
-var throwPokeball = function() {
-  
-}
-
 // SET EVENT LISTENERS
 
 document.addEventListener("mousedown", clickStart, true);
@@ -324,6 +320,29 @@ function step() {
 var pokemon = ['charizard', 'vulpix'];
 var maxhp = [100,100];
 var hp = [100,100];
+
+
+var throwPokeball = function() {
+      $("#pokeball").css({
+      'display: block',
+      '-webkit-transform':'translate(200px,-700px)',
+      '-moz-transform':'translate(200px,-700px)',
+      '-o-transform':'translate(200px,-700px)',
+      '-ms-transform':'translate(200px,-700px)',
+      'transform':'translate(200px,-700px)'
+    });
+
+    setTimeout(function(){
+      $("#pokeball").css({
+        'display: block',
+        '-webkit-transform':'translate(0,0)',
+        '-moz-transform':'translate(0,0)',
+        '-o-transform':'translate(0,0)',
+        '-ms-transform':'translate(0,0)',
+        'transform':'translate(0,0)'
+      });    
+    }, 450);
+}
 
 
 function attack(them) {

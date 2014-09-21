@@ -88,6 +88,13 @@
 	top: 1400px;
 	left: 150px;
 }
+#pokeball {
+	top: 1200px;
+	left: 100px;
+	width: 30%;
+	height: 30%;
+	display: none;
+}
 
 .shadow {
 	position: absolute;
