@@ -324,6 +324,7 @@ var hp = [100,100];
 
 var throwPokeball = function() {
     $("#pokeball").css({
+      'opacity':100,
       '-webkit-transform':'translate(360px,-1500px)',
       '-moz-transform':'translate(360px,-1500px)',
       '-o-transform':'translate(360px,-1500px)',
@@ -335,6 +336,16 @@ var throwPokeball = function() {
       $("#pokemon1").css({
         'opacity':'0'
       });
+      setTimeout(function(){
+          $("#pokeball").css({
+            'opacity':0
+          });
+          setTimeout(function(){
+                  $("#pokemon1").css({
+                    'opacity':'100'
+                  });
+          }, 3000);
+        }, 1000);
     }, 450);
 }
 
