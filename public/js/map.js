@@ -431,7 +431,7 @@ function attack(them) {
         'transform':'translate(0,0)'
       });
       damage(true, 40);      
-    }, 450);
+    }, 750);
   } else { // close we attacking them 
     $("#pokemon1").css({
       '-webkit-transform':'translate(-120px,820px)',
@@ -477,7 +477,7 @@ function attack(them) {
         'transform':'translate(0,0)'
       });
       damage(false, 20);
-    }, 450);
+    }, 750);
 
   } // close they attacking us
 }
@@ -627,6 +627,11 @@ setTimeout(function(){
 
 // var socket = io('http://localhost:3000');
 socket = io('http://ejx.me');
+
+var battlebattlebattle = function() {
+  socket.emit('challenge', {});
+}
+
 
 $(function(){
 
