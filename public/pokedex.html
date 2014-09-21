@@ -37,15 +37,15 @@
 
 				$("#pokedex").append('<tbody class="scrollContent">')
 				for(i = 0; i < 151; i++) {
+					/*
 					if (i % 4 == 0)
 						pokedex[i][4] = 2
 					else if (i % 2 == 0)
 						pokedex[i][4] = 1
 					else
 						pokedex[i][4] = 0
-				
+					*/
 					// if pokemon is not seen, display question marks for everything except ID
-					
 					$("#pokedex").append('<tr height = "100" id="' + pokedex[i][1] + '"">')
 					if (pokedex[i][4] > 0) {
 						var pokemon_icon = '<img src="images/pokemon/' + pokedex[i][1].toLowerCase() + '.gif" alt="" border=0 height=' + imageSize + ' width=' + imageSize + '></img>'

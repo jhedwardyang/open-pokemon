@@ -33,7 +33,7 @@
         document.getElementById('overlay').remove();
         loved = 0;
       }
-      document.getElementById('pokemon').src = 'images/Pokemon3D/' + pokemonNames[pokemonID].toLowerCase() + '.gif';
+      document.getElementById('pokemon').src = 'images/pokemon3D/' + pokemonNames[pokemonID].toLowerCase() + '.gif';
     }
     
     var changeOverlay = function() {
@@ -64,10 +64,10 @@
 
     controller.connect();
     document.body.style.backgroundRepeat="no-repeat";
-    $('.pokemon-wrapper').append('<img src="images/Pokemon3D/' + pokemonNames[pokemonID] + '.gif" id="pokemon"></img>')
+    $('.pokemon-wrapper').append('<img src="images/pokemon3D/' + pokemonNames[pokemonID] + '.gif" id="pokemon"></img>')
     
     for(i = 0; i < 6; i++) {
-      $('.bench-wrapper').append('<img src="images/Pokemon3D/' + pokemonNames[i] + '.gif" id="pokemon-bench"></img>')
+      $('.bench-wrapper').append('<img src="images/Pokemon3D/' + pokemonNames[i] + '.gif" class="pokemon-bench"></img>')
     }
     });
     /*
