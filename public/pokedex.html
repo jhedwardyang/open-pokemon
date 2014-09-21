@@ -37,14 +37,13 @@
 
 				$("#pokedex").append('<tbody class="scrollContent">')
 				for(i = 0; i < 151; i++) {
-					/*
-					if (i % 4 == 0)
+					if (i == 0 || i == 3  || i == 6 || i == 34 || i == 15 || i == 24)
 						pokedex[i][4] = 2
-					else if (i % 2 == 0)
+					else if (i == 12  || i == 18 || i == 22)
 						pokedex[i][4] = 1
 					else
 						pokedex[i][4] = 0
-					*/
+					
 					// if pokemon is not seen, display question marks for everything except ID
 					$("#pokedex").append('<tr height = "100" id="' + pokedex[i][1] + '"">')
 					if (pokedex[i][4] > 0) {
