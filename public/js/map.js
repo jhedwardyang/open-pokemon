@@ -546,6 +546,8 @@ $(function(){
   $('img').on('dragstart', function(event) { event.preventDefault(); });
   if(document.body.requestFullscreen) document.body.requestFullscreen();
   $(window).scrollTop($(document).height());
+  var offset = $(document).height() - $(window).height() + 60;
+  $("body").css('margin-top', -1 * offset);
 });
 
 socket.on('welcome', function(data) {
