@@ -1,0 +1,89 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/leapmotion.css">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <script src="assets/leapjs/leap-0.6.2.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+  <script type="text/javascript">
+    var socket = io('http://ejx.me');
+    socket.on('welcome', function (data) {
+        console.log(data);
+        // socket.emit('getPokedexDump', {email:'jh.edwardyang@gmail.com'});
+    });
+    socket.on('leapAction', function (data) {
+        console.log("leap action: " + data);
+        if (data.type == "circle")
+          changePokemon();
+        else if (data.type == "swipe")
+          changeOverlay();
+    });
+
+    var pokemonID = 0;
+    var pokemonNames = ["bulbasaur", "charmander", "squirtle", "pikachu", "pidgey", "rattata"];
+
+    var loved = 0;
+    var changePokemon = function() {
+      console.log("Change pokemon");
+      pokemonID = (pokemonID + 1) % 6;
+      console.log("ID: " + id + ", name: " + pokemonNames[id])
+      if (loved > 0) {
+        document.getElementById('overlay').remove();
+        loved = 0;
+      }
+      document.getElementById('pokemon').src = 'images/pokemon/' + pokemonNames[id].toLowerCase() + '.gif';
+    }
+    
+    var changeOverlay = function() {
+      console.log("Change overlay");
+      if (loved == 0) {
+        $('.pokemon-wrapper').append('<img src="images/Icon/HEART-loop.gif" id="overlay">');
+        loved = true
+      } else if (loved > 3) {
+        document.getElementById('overlay').src = 'images/Icon/DISLIKE-loop.gif';
+      }
+      loved += 1;
+    }
+
+    $(document).ready(function() {
+      console.log($('.pokemon-wrapper'))
+      console.log('<img src="images/pokemon/' + pokemonNames[pokemonID] + '.gif"')
+      $('.pokemon-wrapper').append('<img src="images/pokemon/' + pokemonNames[pokemonID] + '.gif" id="pokemon"></img>')
+    });
+  </script>
+</head>
+
+<body background="images/field.jpg">
+  <div class="pokemon-wrapper">
+  </div>
+</body>
+</html>
+<!--
+      // Create and wopen the socket
+      ws = new WebSocket("ws://localhost:6437/");
+
+      // On successful connection
+      ws.onopen = function(event) {
+        var enableMessage = JSON.stringify({enableGestures: true});
+        ws.send(enableMessage); // Enable gestures
+      };
+
+      // On message received
+      ws.onmessage = function(event) {
+          var trackingdata = JSON.parse(event.data);
+          console.log(trackingdata)
+          // ...do something with the data
+        }
+      };
+
+      // On socket close
+      ws.onclose = function(event) {
+        ws = null;
+      }
+
+      // On socket error
+      ws.onerror = function(event) {
+        alert("Received error");
+      };
+    }
+    -->
