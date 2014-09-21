@@ -1,11 +1,15 @@
 body {
-  background-size: 50%;
+  background-size: 1200px 600px;
 }
 
-#pokemon-wrapper {
+.pokemon-wrapper {
   position: relative; 
-  left: 0; top: 0;"
- 
+  left: 120; top: 80;"
+}
+
+.bench-wrapper {
+  position: relative; 
+  left: 50; top: 20;"
 }
 
 #pokemon {
@@ -15,9 +19,16 @@ body {
   width: 500;
 }
 
+.pokemon-bench {
+  position: relative; 
+  left: 0; top: 0;"
+  height: 200;
+  width: 200;
+}
+
 #overlay {
 	position: absolute;
-	top: 30px; left: 70px;
+	left: 100; top: 80; 
 	height: 500;
   width: 500;
 }

@@ -5,9 +5,9 @@
 </head>
 <body bgcolor="#E6E6E6">
 	<script type="text/javascript" src="assets/jquery-2.1.1.min/jquery-2.1.1.min.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
 	<script type="text/javascript">
-  		var socket = io('http://ejx.me');
+  	var socket = io('http://ejx.me');
 		socket.on('welcome', function (data) {
 		    console.log(data);
 		    socket.emit('getPokedexDump', {email:'jh.edwardyang@gmail.com'});

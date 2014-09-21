@@ -1,11 +1,14 @@
 <html>
 <head>
+  <title>Vacation</title>
   <link rel="stylesheet" type="text/css" href="css/leapmotion.css">
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
   <script src="assets/leapjs/leap-0.6.2.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
   <script type="text/javascript">
-
+    var socket = io('http://ejx.me');
+    
     $(document).ready(function() {
     window.controller = new Leap.Controller({enableGestures: true});
     // window.controller = new Leap.Controller("ws://localhost:6437/");
@@ -19,42 +22,54 @@
     var cooloff = 200;
 
     var pokemonID = 0;
-    var pokemonNames = ["bulbasaur", "charmander", "squirtle", "pikachu", "pidgey", "rattata"];
+    var pokemonNames = ["charmander", "squirtle", "pikachu", "clefairy", "pidgey", "bulbasaur"];
 
     var loved = 0;
-    var changePokemon = function(id) {
-      console.log("ID: " + id + ", name: " + pokemonNames[id])
+    var changePokemon = function() {
+      console.log("Change pokemon");
+      pokemonID = (pokemonID + 1) % 6;
+      console.log("ID: " + pokemonID + ", name: " + pokemonNames[pokemonID])
       if (loved > 0) {
         document.getElementById('overlay').remove();
         loved = 0;
       }
-      document.getElementById('pokemon').src = 'images/pokemon/' + pokemonNames[id].toLowerCase() + '.gif';
+      document.getElementById('pokemon').src = 'images/Pokemon3D/' + pokemonNames[pokemonID].toLowerCase() + '.gif';
     }
-
-    var slider = _.debounce(function(xDir) {
-      if (xDir != 0) {
-        pokemonID += xDir;
-        pokemonID = (pokemonID + 6) % 6;
-        changePokemon(pokemonID);
-      }
-    }, cooloff);
-
-    circleGesture.stop(function(g) {
-      console.log("Circle gesture");
-        slider(1);
-    });
     
-    swipeGesture.stop(function(g) {
-      console.log("Swipe gesture");
+    var changeOverlay = function() {
+      console.log("Change overlay");
       if (loved == 0) {
         $('.pokemon-wrapper').append('<img src="images/Icon/HEART-loop.gif" id="overlay">');
         loved = true
-      } else if (loved > 3) {
+      } else if (loved > 10) {
         document.getElementById('overlay').src = 'images/Icon/DISLIKE-loop.gif';
       }
       loved += 1;
+    }
+    circleGesture.stop(function(g) {
+      // send request to server for a circle gesture
+      console.log("send out leapAction, type:circle");
+      changePokemon();
+      // socket.broadcast.emit('leapActionCircle');
+    });
+    
+    swipeGesture.stop(function(g) {
+      // send request to server for a swipe gesture
+      if(Math.abs(g.translation()[0]) > tolerance) {
+        console.log("send out leapAction, type:swipe");
+        changeOverlay();
+      }
+      // socket.broadcast.emit('leapActionSwipe');
     });
 
+    controller.connect();
+    document.body.style.backgroundRepeat="no-repeat";
+    $('.pokemon-wrapper').append('<img src="images/Pokemon3D/' + pokemonNames[pokemonID] + '.gif" id="pokemon"></img>')
+    
+    for(i = 0; i < 6; i++) {
+      $('.bench-wrapper').append('<img src="images/Pokemon3D/' + pokemonNames[i] + '.gif" id="pokemon-bench"></img>')
+    }
+    });
     /*
     keytapGesture.update(function(g) {
       console.log("key tap gesture");
@@ -66,16 +81,12 @@
       console.log(g);
     });
     */
-    
-    controller.connect();
-    $('.pokemon-wrapper').append('<img src="images/pokemon/' + pokemonNames[pokemonID] + '.gif" id="pokemon">')
-  })
   </script>
 </head>
 
-<body background="images/field.jpg">
-  <div class="pokemon-wrapper">
-  </div>
+<body background="images/bedroom.jpg">
+  <div class="pokemon-wrapper"></div>
+  <div class="bench-wrapper"></div>
 </body>
 </html>
 <!--
