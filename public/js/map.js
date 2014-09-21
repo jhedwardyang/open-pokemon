@@ -325,11 +325,11 @@ var hp = [100,100];
 var throwPokeball = function() {
     $("#pokeball").css({
       'opacity':100,
-      '-webkit-transform':'translate(360px,-1500px)',
-      '-moz-transform':'translate(360px,-1500px)',
-      '-o-transform':'translate(360px,-1500px)',
-      '-ms-transform':'translate(360px,-1500px)',
-      'transform':'translate(360px,-1500px)'
+      '-webkit-transform':'translate(560px,-1300px)',
+      '-moz-transform':'translate(560px,-1300px)',
+      '-o-transform':'translate(560px,-1300px)',
+      '-ms-transform':'translate(560px,-1300px)',
+      'transform':'translate(560px,-1300px)'
     });
 
     setTimeout(function(){
@@ -340,12 +340,24 @@ var throwPokeball = function() {
           $("#pokeball").css({
             'opacity':0
           });
-          setTimeout(function(){
-                  $("#pokemon1").css({
-                    'opacity':'100'
-                  });
-          }, 3000);
+        $("#overlay").fadeTo("slow", 0.9);
+        $("#map").fadeTo("slow", 1);
+        $("audio#m1").trigger('stop'); $("audio#m1").currentTime = 0; $("audio#m1").prop('volume', 0);
+        $("audio#m2").trigger('play'); $("audio#m2").prop('volume', 1);
+        setTimeout(function() {
+          // CLEANUP
+          hp[0] = maxhp[0];
+          // hp[1] = maxhp[1];
+          $("#hp1 > span").css('width',hp[0]+'%');
+          $("#hp2 > span").css('width',hp[1]+'%');
+          $("#shadow1").css('opacity','1');
+          $("#hp1").css('opacity','1');
+          $("#pokemon1").css('opacity','1');
+          $("#shadow2").css('opacity','1');
+          $("#hp2").css('opacity','1');
+          $("#pokemon2").css('opacity','1');
         }, 1000);
+      }, 1000);
     }, 450);
 }
 
