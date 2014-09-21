@@ -18,8 +18,10 @@
 #marker {
 	z-index: 102;
 	position: absolute;
-	top: 873px;
-	left: 489px;
+	top: 865px;
+	width: 45px;
+	height: 45px;
+	left: 470px;
 	-webkit-transition: .4s ease-in-out;
     -moz-transition: .4s ease-in-out;
     -o-transition: .4s ease-in-out;
