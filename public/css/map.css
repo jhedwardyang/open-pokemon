@@ -97,11 +97,11 @@
 	left: 150px;
 }
 #pokeball {
-	top: 1200px;
-	left: 100px;
-	width: 30%;
+	top: 2000px;
+	left: -100px;
+	width: 75;
 	height: auto;
-	opacity: 100;
+	opacity: 0;
 }
 
 .shadow {

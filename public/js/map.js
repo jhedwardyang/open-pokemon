@@ -323,22 +323,41 @@ var hp = [100,100];
 
 
 var throwPokeball = function() {
-      $("#pokeball").css({
-      '-webkit-transform':'translate(200px,-700px)',
-      '-moz-transform':'translate(200px,-700px)',
-      '-o-transform':'translate(200px,-700px)',
-      '-ms-transform':'translate(200px,-700px)',
-      'transform':'translate(200px,-700px)'
+    $("#pokeball").css({
+      'opacity':100,
+      '-webkit-transform':'translate(560px,-1200px)',
+      '-moz-transform':'translate(560px,-1200px)',
+      '-o-transform':'translate(560px,-1200px)',
+      '-ms-transform':'translate(560px,-1200px)',
+      'transform':'translate(560px,-1200px)'
     });
 
     setTimeout(function(){
-      $("#pokeball").css({
-        '-webkit-transform':'translate(0,0)',
-        '-moz-transform':'translate(0,0)',
-        '-o-transform':'translate(0,0)',
-        '-ms-transform':'translate(0,0)',
-        'transform':'translate(0,0)'
-      });    
+      $("#pokemon1").css({
+        'opacity':'0'
+      });
+      setTimeout(function(){
+          $("#pokeball").css({
+            'opacity':0
+          });
+        $("#overlay").fadeTo("slow", 0.9);
+        $("#map").fadeTo("slow", 1);
+        $("audio#m1").trigger('stop'); $("audio#m1").currentTime = 0; $("audio#m1").prop('volume', 0);
+        $("audio#m2").trigger('play'); $("audio#m2").prop('volume', 1);
+        setTimeout(function() {
+          // CLEANUP
+          hp[0] = maxhp[0];
+          // hp[1] = maxhp[1];
+          $("#hp1 > span").css('width',hp[0]+'%');
+          $("#hp2 > span").css('width',hp[1]+'%');
+          $("#shadow1").css('opacity','1');
+          $("#hp1").css('opacity','1');
+          $("#pokemon1").css('opacity','1');
+          $("#shadow2").css('opacity','1');
+          $("#hp2").css('opacity','1');
+          $("#pokemon2").css('opacity','1');
+        }, 3000);
+      }, 1000);
     }, 450);
 }
 
