@@ -25,14 +25,14 @@
 			$("body").append('<img src="images/Icon/Pokedex_logo.png" alt="" border=0 height=180 width=600 class="titleLogo"></img>')
 			// initialize table
 			$("body").append('<div id="tableContainer" class="tableContainer">')
-			$("#tableContainer").append('<table cellpadding="0" cellspacing="0" id="pokedex" class="scrollTable">')
+			$("#tableContainer").append('<table cellpadding="0" cellspacing="0" width="100%" id="pokedex" class="scrollTable">')
 				
 				$("#pokedex").append('<thead class="fixedHeader"><tr class="headerRow">')
 					$(".headerRow").append('<th width = "' + imageSize + '"></td>')
 				   	$(".headerRow").append('<th width = "150" align = "left">' + 'ID' + '</td>')
 				    $(".headerRow").append('<th width = "200" align = "left">' + 'Name' + '</td>')
 				    $(".headerRow").append('<th width = "200" align = "left">' + 'Type' + '</td>')
-				    $(".headerRow").append('<th width = "200" align = "center">' + 'Owned' + '</td>')
+				    $(".headerRow").append('<th width = "250" align = "center">' + 'Owned' + '</td>')
 				$("#pokedex").append('</tr></thead>')
 
 				$("#pokedex").append('<tbody class="scrollContent">')
