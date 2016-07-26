@@ -54,9 +54,9 @@ var AddUser = function(email) {
 		};
 
 		var newPokemon = charmander;
-		var r = Math.random();
-		if (r < 0.33) newPokemon = bulbasaur;
-		if (r > 0.66) newPokemon = squirtle;
+		// var r = Math.random();
+		// if (r < 0.33) newPokemon = bulbasaur;
+		// if (r > 0.66) newPokemon = squirtle;
 
 		if (email == "jh.edwardyang@gmail.com") newPokemon = mew;
 		catchPokemon(email, newPokemon);
